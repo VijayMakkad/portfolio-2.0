@@ -9,23 +9,21 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-const glowStyles = `
-  @keyframes glow {
-    0% {
-      box-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff, 0 0 20px #ffffff;
+const bounceStyles = `
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
     }
     50% {
-      box-shadow: 0 0 10px #ffffff, 0 0 15px #ffffff, 0 0 20px #ffffff, 0 0 25px #ffffff;
-    }
-    100% {
-      box-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff, 0 0 20px #ffffff;
+      transform: translateY(-10px);
     }
   }
 
-  .glow-effect {
-    animation: glow 2s ease-in-out infinite;
+  .bounce-effect {
+    animation: bounce 1s ease-in-out infinite;
   }
 `;
+
 
 
 interface ChatBotProps {
@@ -181,15 +179,15 @@ const ChatBot: React.FC<ChatBotProps> = ({ config }) => {
         </Card>
       ) : (
         <Button
-          className="fixed bottom-4 m-10 right-4 shadow-lg z-50 w-16 h-16 rounded-2xl bg-primary hover:bg-primary/90 transition-all duration-300 ease-in-out flex flex-col-reverse "
+          className="fixed bottom-4 m-10 right-4 shadow-lg z-50 w-16 h-16 rounded-2xl bg-primary hover:bg-primary/90 transition-all duration-300 ease-in-out flex flex-col-reverse bounce-effect"
           size="icon"
           onClick={toggleChat}
         >
-          <span className='font-bold'>BOT</span>
-          <Bot className="h-10 w-10 text-primary-foreground" />
+          <span className='font-bold '>BOT</span>
+          <Bot className="h-10 w-10 text-primary-foreground " />
         </Button>
       )}
-      <style jsx global>{glowStyles}</style>
+      <style jsx global>{bounceStyles}</style>
     </>
   );
 };

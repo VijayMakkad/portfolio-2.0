@@ -5,6 +5,7 @@ import ChatBot from "@/components/Chatbot";
 import Navbar from "@/components/Navbar";
 import { vmBotConfig } from "@/config/chatConfig";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/ui/toaster";
 
 // Import Poppins font
 const poppins = Poppins({
@@ -35,6 +36,7 @@ export default function RootLayout({
           {/* Main Content Area */}
           <main className="min-h-screen container mx-auto">
             {children}
+            <Toaster/>
           </main>
           {/* Static ChatBot */}
           <ChatBot config={vmBotConfig} />

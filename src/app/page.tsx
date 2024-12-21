@@ -16,7 +16,7 @@ import Link from "next/link";
 const PortfolioCard = () => {
   return (
     <div className="flex items-center justify-center min-h-screen p-4 ">
-      <Card className="w-full max-w-4xl md:w-[44.5%] bg-zinc-100 dark:bg-zinc-900/90 text-zinc-900 dark:text-white p-4 md:p-8 space-y-6 md:space-y-8">
+      <Card className="w-full max-w-4xl md:w-[44.5%] shadow-lg bg-zinc-100 dark:bg-zinc-900/90 text-zinc-900 dark:text-white p-4 md:p-8 space-y-6 md:space-y-8">
         {/* Header Section */}
         <div className="space-y-1">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
@@ -42,7 +42,7 @@ const PortfolioCard = () => {
             <div className="flex justify-center sm:justify-start gap-3 mt-4">
               <Button
                 size="sm"
-                className="bg-zinc-50 text-black dark:bg-zinc-800 dark:text-white hover:bg-zinc-300 dark:hover:bg-zinc-600"
+                className="bg-white text-black dark:bg-zinc-800 dark:text-white hover:bg-zinc-300 dark:hover:bg-zinc-600"
               >
                 <PlusCircle className="mr-2" />
                 Hire Me
@@ -76,7 +76,7 @@ const PortfolioCard = () => {
         </div>
 
         {/* Projects Section */}
-        <div className="space-y-4 bg-white dark:bg-zinc-800/50 rounded-lg p-4 md:p-5">
+        <div className="space-y-4  bg-white shadow-lg dark:bg-zinc-800/50 rounded-lg p-4 md:p-5">
           <div className="flex justify-between items-center">
             <span className="text-zinc-600 dark:text-gray-400">• Projects</span>
             <Button
@@ -135,7 +135,7 @@ const PortfolioCard = () => {
         </div>
 
         {/* Products Section */}
-        <div className="space-y-4 bg-white dark:bg-zinc-800/50 rounded-lg p-4 md:p-5">
+        <div className="space-y-4 shadow-lg bg-white dark:bg-zinc-800/50 rounded-lg p-4 md:p-5">
           <span className="text-zinc-600 dark:text-gray-400">• Products</span>
           <div className="space-y-2">
             {[

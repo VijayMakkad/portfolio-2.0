@@ -110,7 +110,7 @@ export default function Navbar() {
             className={`h-8 sm:h-9 px-2 text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-2 ${
               isDarkMode
                 ? "bg-zinc-600 text-white hover:bg-zinc-800"
-                : "bg-gray-100 text-black hover:bg-gray-400"
+                : "bg-white text-black hover:bg-gray-400"
             }`}
           >
             <PlusCircle className="h-3 w-3 sm:h-4 sm:w-4" />
