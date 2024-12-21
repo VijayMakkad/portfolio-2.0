@@ -1,14 +1,27 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, X, MessageCircle, Bot } from 'lucide-react';
+import { Send, X, Bot } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { Message, ChatConfig } from '../types/chat';
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
+// Types
+interface ChatConfig {
+  modelName: string;
+  modelConfig: any;
+  botName: string;
+  initialPrompt: string;
+}
+
+interface Message {
+  role: 'user' | 'bot';
+  content: string;
+}
+
+// Styles for bounce animation
 const bounceStyles = `
   @keyframes bounce {
     0%, 100% {
@@ -22,30 +35,89 @@ const bounceStyles = `
   .bounce-effect {
     animation: bounce 1s ease-in-out infinite;
   }
+
+  .message-content h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+
+  .message-content h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0.75rem 0;
+  }
+
+  .message-content ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .message-content li {
+    margin: 0.25rem 0;
+  }
+
+  .message-content p {
+    margin: 0.5rem 0;
+  }
 `;
-
-
-
-interface ChatBotProps {
-  config: ChatConfig;
-}
 
 const initialHistory: Message[] = [
   {
     role: 'bot',
-    content:
-      "Hello! I'm VM Bot, an AI assistant designed to provide information about Vijay Makkad. Ask me anything about his background, career, skills, hobbies, or interests!",
+    content: "Hello! I'm VM Bot, an AI assistant designed to provide information about Vijay Makkad. Ask me anything about his background, career, skills, hobbies, or interests!",
   },
 ];
 
 const formatMessage = (text: string): string => {
-  let formattedText = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-  formattedText = formattedText.replace(/(?:\n)?\s*\*\s+(.*?)(?=\n|$)/g, "<li>$1</li>");
-  formattedText = formattedText.replace(/(<li>.*<\/li>)+/g, "<ul>$&</ul>");
-  return formattedText;
+  let formattedText = text;
+
+  // Process headings
+  formattedText = formattedText.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+  formattedText = formattedText.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+
+  // Process bold text - handle both **** and ** patterns
+  formattedText = formattedText.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<strong>$1</strong>');
+  formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  // Process bullet points and create html structure
+  const lines = formattedText.split('\n');
+  let inList = false;
+  let processedLines = [];
+  let currentList = [];
+
+  for (const line of lines) {
+    const trimmedLine = line.trim();
+    
+    if (trimmedLine.startsWith('*')) {
+      if (!inList) {
+        inList = true;
+        currentList = [];
+      }
+      // Remove the asterisk and trim
+      const listItemContent = trimmedLine.substring(1).trim();
+      currentList.push(`<li>${listItemContent}</li>`);
+    } else {
+      if (inList) {
+        processedLines.push(`<ul>${currentList.join('')}</ul>`);
+        currentList = [];
+        inList = false;
+      }
+      if (trimmedLine) {
+        processedLines.push(`<p>${trimmedLine}</p>`);
+      }
+    }
+  }
+
+  // Handle any remaining list items
+  if (inList && currentList.length > 0) {
+    processedLines.push(`<ul>${currentList.join('')}</ul>`);
+  }
+
+  return processedLines.join('');
 };
 
-const ChatBot: React.FC<ChatBotProps> = ({ config }) => {
+const ChatBot: React.FC<{ config: ChatConfig }> = ({ config }) => {
   const [messages, setMessages] = useState<Message[]>(initialHistory);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -142,8 +214,12 @@ const ChatBot: React.FC<ChatBotProps> = ({ config }) => {
                         ? 'bg-primary text-primary-foreground'
                         : 'bg-secondary text-secondary-foreground'
                     }`}
-                    dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
-                  />
+                  >
+                    <div 
+                      className="message-content"
+                      dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
+                    />
+                  </div>
                 </div>
               ))}
               {isTyping && (
@@ -183,8 +259,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ config }) => {
           size="icon"
           onClick={toggleChat}
         >
-          <span className='font-bold '>BOT</span>
-          <Bot className="h-10 w-10 text-primary-foreground " />
+          <span className="font-bold">BOT</span>
+          <Bot className="h-10 w-10 text-primary-foreground" />
         </Button>
       )}
       <style jsx global>{bounceStyles}</style>
@@ -193,4 +269,3 @@ const ChatBot: React.FC<ChatBotProps> = ({ config }) => {
 };
 
 export default ChatBot;
-

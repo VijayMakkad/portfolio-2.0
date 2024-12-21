@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation"; // Use usePathname for simplicity in Next.js 13+
 import {
   Home,
   UserCircle,
@@ -14,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
+  const pathname = usePathname(); // Replaces useRouter().pathname
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
       return window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -38,6 +40,14 @@ export default function Navbar() {
     }
   }, [isDarkMode]);
 
+  useEffect(() => {
+    // Update active link based on the current route
+    if (pathname) {
+      const currentRoute = pathname === "/" ? "home" : pathname.slice(1);
+      setActiveLink(currentRoute);
+    }
+  }, [pathname]);
+
   const navItems = [
     { id: "home", icon: <Home className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Home" },
     { id: "about", icon: <UserCircle className="h-5 w-5 sm:h-7 sm:w-7" />, label: "About" },
@@ -56,7 +66,6 @@ export default function Navbar() {
             <div key={item.id} className="group relative">
               <Link href={`/${item.id === "home" ? "" : item.id}`}>
                 <div
-                  onClick={() => setActiveLink(item.id)}
                   className={`p-1 sm:p-2 rounded-full transition-all ease-in-out cursor-pointer ${
                     isDarkMode
                       ? "text-zinc-400 hover:text-white"

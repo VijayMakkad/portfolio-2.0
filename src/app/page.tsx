@@ -1,19 +1,27 @@
 // PortfolioCard.jsx
+"use client"
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   PlusCircle,
-  Instagram,
-  Linkedin,
-  Twitter,
-  Github,
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
 const PortfolioCard = () => {
+  const { toast } = useToast()
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("vijaymakkad0104@gmail.com").then(() => {
+      toast({
+        title: "Email copied!",
+        description: "The email has been copied to your clipboard.",
+      })
+    })
+  }
   return (
     <div className="flex items-center justify-center min-h-screen p-4 ">
       <Card className="w-full max-w-4xl md:w-[44.5%] shadow-lg bg-zinc-100 dark:bg-zinc-900/90 text-zinc-900 dark:text-white p-4 md:p-8 space-y-6 md:space-y-8">
@@ -50,6 +58,7 @@ const PortfolioCard = () => {
               <Button
                 size="sm"
                 variant="outline"
+                onClick={handleCopyEmail}
                 className="border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white"
               >
                 Copy Email
@@ -136,7 +145,7 @@ const PortfolioCard = () => {
 
         {/* Products Section */}
         <div className="space-y-4 shadow-lg bg-white dark:bg-zinc-800/50 rounded-lg p-4 md:p-5">
-          <span className="text-zinc-600 dark:text-gray-400">• Products</span>
+          <span className="text-zinc-600 dark:text-gray-400">• Testimonials</span>
           <div className="space-y-2">
             {[
               { name: "Portafo", tag: "FRAMER TEMPLATE" },
@@ -149,9 +158,6 @@ const PortfolioCard = () => {
                 className="flex items-center justify-between p-4 bg-zinc-200/50 hover:bg-zinc-300/50 dark:bg-zinc-600/50 dark:hover:bg-zinc-700/50 rounded-lg cursor-pointer transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-zinc-300 dark:bg-zinc-700 flex items-center justify-center text-zinc-700 dark:text-white">
-                    {product.name[0]}
-                  </div>
                   <div className="font-medium">{product.name}</div>
                 </div>
                 <span className="text-xs text-zinc-500 dark:text-gray-500">
