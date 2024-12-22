@@ -7,8 +7,14 @@ import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  const projectId = parseInt(params.id, 10);
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function ProjectPage({ params }: PageProps) {
+  // Await the params
+  const { id } = await params;
+  const projectId = parseInt(id, 10);
   const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
