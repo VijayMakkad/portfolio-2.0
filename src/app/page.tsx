@@ -10,6 +10,7 @@ import {
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import { projects } from "./projects/data";
 
 const PortfolioCard = () => {
   const { toast } = useToast()
@@ -101,30 +102,12 @@ const PortfolioCard = () => {
           </div>
 
           <div className="space-y-2">
-            {[
-              {
-                name: "Morva labs",
-                description: "Visual design, Branding",
-                icon: "M",
-                color: "bg-violet-600",
-              },
-              {
-                name: "Rectangle",
-                description: "Product design, Icon design",
-                icon: "□",
-                color: "bg-violet-600",
-              },
-              {
-                name: "Simply",
-                description: "Landing page, Illustration design",
-                icon: "S",
-                color: "bg-orange-400",
-              },
-            ].map((project, index) => (
+            {projects.filter((_, index) => index % 2 === 0).slice(0,3).map((project, index) => (
               <div
                 key={index}
                 className="flex items-center justify-between p-4 bg-zinc-200/50 hover:bg-zinc-300/50 dark:bg-zinc-600/50 dark:hover:bg-zinc-700/50 rounded-lg cursor-pointer transition-colors"
               >
+                <Link href={`/projects/${project.id}`}>
                 <div className="flex items-center gap-4">
                   <div
                     className={`h-10 w-10 rounded-full ${project.color} flex items-center justify-center text-white`}
@@ -134,10 +117,11 @@ const PortfolioCard = () => {
                   <div>
                     <div className="font-medium">{project.name}</div>
                     <div className="text-sm text-zinc-600 dark:text-gray-400">
-                      {project.description}
+                      {project.tags?.join(", ")}
                     </div>
                   </div>
                 </div>
+                </Link>
                 <ArrowRight className="h-4 w-4 text-zinc-600 dark:text-gray-400" />
               </div>
             ))}
