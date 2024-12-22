@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from "@/components/ui/card";
-import { ChevronLeft, Github, Globe } from 'lucide-react';
+import { ChevronLeft, Github, Globe } from "lucide-react";
 import { projects } from '../data';
 import { OtherProjects } from '../../../components/OtherProjects';
 import Link from 'next/link';
@@ -9,6 +9,17 @@ import { Button } from '@/components/ui/button';
 
 interface PageProps {
   params: { id: string };
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const projectId = parseInt(params.id, 10);
+  const project = projects.find((p) => p.id === projectId);
+
+  if (!project) {
+    return { title: 'Project Not Found' };
+  }
+
+  return { title: project.name };
 }
 
 export default function ProjectPage({ params }: PageProps) {
@@ -89,4 +100,3 @@ export default function ProjectPage({ params }: PageProps) {
     </div>
   );
 }
-
