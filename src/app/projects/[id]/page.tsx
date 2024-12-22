@@ -13,8 +13,7 @@ interface PageProps {
     searchParams: { [key: string]: string | string[] | undefined };
   }
   
-  export default async function ProjectPage({ params, searchParams }: PageProps) {
-    const resolvedSearchParams = await searchParams; // Resolve the searchParams
+  export default function ProjectPage({ params, searchParams }: PageProps) {
     const projectId = parseInt(params.id, 10); // Parse the id as a number
     const project = projects.find((p) => p.id === projectId);
   
