@@ -7,10 +7,10 @@ import {
   Home,
   UserCircle,
   CodeSquareIcon,
-  Code,
   Sun,
   MoonStarIcon,
   PlusCircle,
+  TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -51,8 +51,8 @@ export default function Navbar() {
   const navItems = [
     { id: "home", icon: <Home className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Home" },
     { id: "about", icon: <UserCircle className="h-5 w-5 sm:h-7 sm:w-7" />, label: "About" },
+    { id: "experience", icon: <TrendingUp className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Experience" },
     { id: "projects", icon: <CodeSquareIcon className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Projects" },
-    { id: "experience", icon: <Code className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Experience" },
   ];
 
   return (

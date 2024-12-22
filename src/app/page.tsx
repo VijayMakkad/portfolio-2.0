@@ -27,7 +27,7 @@ const PortfolioCard = () => {
       <Card className="w-full max-w-4xl md:w-[44.5%] shadow-lg bg-zinc-100 dark:bg-zinc-900/90 text-zinc-900 dark:text-white p-4 md:p-8 space-y-6 md:space-y-8">
         {/* Header Section */}
         <div className="space-y-1">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <div className="flex flex-row sm:flex-row items-start sm:items-center justify-between gap-2">
             <span className="text-zinc-600 dark:text-gray-400">
               • Software Developer
             </span>

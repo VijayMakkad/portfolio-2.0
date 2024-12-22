@@ -1,8 +1,7 @@
 "use client"
 import React, { useState } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Instagram, Linkedin, Twitter, Github,PlusCircle, Clipboard } from "lucide-react";
+import { Instagram, Linkedin, Github,PlusCircle, Clipboard, FileText } from "lucide-react";
 import { useToast } from "../hooks/use-toast";
 
 export const Footer = () => {
@@ -63,7 +62,7 @@ export const Footer = () => {
           </div>
           <div className="flex gap-2 items-center justify-center sm:justify-end">
             {[
-              { Icon: Twitter, href: "#" },
+              { Icon: FileText, href: "https://drive.google.com/file/d/1jTMISVMdCXfVyqlHvXzn4DLXugNL3NVD/view?usp=sharing" },
               { Icon: Instagram, href: "https://www.instagram.com/user._.doesnotexisttt/" },
               { Icon: Github, href: "https://github.com/VijayMakkad" },
               { Icon: Linkedin, href: "https://www.linkedin.com/in/vijay-makkad-1573681b3/" }
