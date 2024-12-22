@@ -9,15 +9,13 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 
 interface PageProps {
-    params: Promise<{
-      id: string;
-    }>;
-    searchParams: { [key: string]: string | string[] | undefined };
+    params: { id: string };
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
   }
-
+  
 export default async function ProjectPage({ params, searchParams }: PageProps) {
-    const resolvedParams = await params; // Resolve the promise
-    const projectId = parseInt(resolvedParams.id, 10); // Parse the id as a number
+    const resolvedSearchParams = await searchParams; // Resolve the searchParams
+    const projectId = parseInt(params.id, 10); // Parse the id as a number
     const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
