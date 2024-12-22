@@ -11,12 +11,13 @@ import { Button } from '@/components/ui/button';
 interface PageProps {
   params: {
     id: string;
-  }
+  };
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default async function ProjectPage({ params, searchParams }: PageProps) {
-  const project = projects.find(p => p.id === parseInt(params.id));
+  const projectId = parseInt(params.id, 10); // Ensure `params.id` is parsed as a number
+  const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
     return (
@@ -31,14 +32,14 @@ export default async function ProjectPage({ params, searchParams }: PageProps) {
   return (
     <div className="flex justify-center min-h-screen p-4">
       <Card className="w-full max-w-4xl md:w-[44.5%] shadow-lg bg-zinc-100 dark:bg-zinc-900/90 text-zinc-900 dark:text-white p-4 md:p-8 space-y-6">
-        <Link 
+        <Link
           href="/projects"
           className="flex items-center gap-2 text-zinc-600 dark:text-gray-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
         >
           <ChevronLeft className="h-4 w-4" />
           Back to Projects
         </Link>
-        
+
         <div className="space-y-4">
           <div className="flex items-center gap-4">
             <div className={`h-12 w-12 rounded-full ${project.color} flex items-center justify-center text-white`}>
@@ -47,14 +48,12 @@ export default async function ProjectPage({ params, searchParams }: PageProps) {
             <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">{project.name}</h1>
           </div>
 
-          <p className="text-zinc-600 dark:text-gray-400 leading-relaxed">
-            {project.description}
-          </p>
+          <p className="text-zinc-600 dark:text-gray-400 leading-relaxed">{project.description}</p>
 
           {project.tags && (
             <div className="flex flex-wrap gap-2">
               {project.tags.map((tag, index) => (
-                <span 
+                <span
                   key={index}
                   className="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-full text-sm text-zinc-700 dark:text-gray-300"
                 >
@@ -68,34 +67,26 @@ export default async function ProjectPage({ params, searchParams }: PageProps) {
         <div className="flex justify-between gap-4">
           {project.liveLink && (
             <Button variant="outline" size="sm" asChild>
-            <a
-              href={project.liveLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Globe className="mr-2 h-4 w-4" />
-              Live Demo
-            </a>
-          </Button>
+              <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
+                <Globe className="mr-2 h-4 w-4" />
+                Live Demo
+              </a>
+            </Button>
           )}
           {project.githubRepo && (
             <Button variant="outline" size="sm" asChild>
-            <a
-              href={project.githubRepo}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="mr-2 h-4 w-4" />
-              GitHub
-            </a>
-          </Button>
+              <a href={project.githubRepo} target="_blank" rel="noopener noreferrer">
+                <Github className="mr-2 h-4 w-4" />
+                GitHub
+              </a>
+            </Button>
           )}
         </div>
 
         <div className="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800">
           <OtherProjects currentProjectId={project.id} projects={projects} />
         </div>
-        <Footer/>
+        <Footer />
       </Card>
     </div>
   );
