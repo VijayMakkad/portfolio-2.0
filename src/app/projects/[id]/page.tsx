@@ -1,7 +1,6 @@
-// src/app/projects/[id]/page.tsx
 import React from 'react';
 import { Card } from "@/components/ui/card";
-import { ChevronLeft, Github, Globe } from "lucide-react";
+import { ChevronLeft, Github, Globe } from 'lucide-react';
 import { projects } from '../data';
 import { OtherProjects } from '../../../components/OtherProjects';
 import Link from 'next/link';
@@ -9,14 +8,14 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 
 interface PageProps {
-    params: { id: string };
-    searchParams: { [key: string]: string | string[] | undefined };
-  }
-  
-  export default function ProjectPage({ params, searchParams }: PageProps) {
-    const projectId = parseInt(params.id, 10); // Parse the id as a number
-    const project = projects.find((p) => p.id === projectId);
-  
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default function ProjectPage({ params, searchParams }: PageProps) {
+  const projectId = parseInt(params.id, 10); // Parse the id as a number
+  const project = projects.find((p) => p.id === projectId);
+
   if (!project) {
     return (
       <div className="flex justify-center min-h-screen p-4">
@@ -89,3 +88,4 @@ interface PageProps {
     </div>
   );
 }
+
