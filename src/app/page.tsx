@@ -70,6 +70,7 @@ const PortfolioCard = () => {
               autoPlay
               loop
               muted
+              playsInline
               preload="auto"
               className="h-full w-full rounded-full object-cover pointer-events-none"
             >
