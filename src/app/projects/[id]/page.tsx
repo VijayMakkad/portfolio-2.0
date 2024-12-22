@@ -1,21 +1,15 @@
 import React from 'react';
 import { Card } from "@/components/ui/card";
-import { ChevronLeft, Github, Globe } from "lucide-react";
+import { ChevronLeft, Github, Globe } from 'lucide-react';
 import { projects } from '../data';
 import { OtherProjects } from '../../../components/OtherProjects';
 import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 
-interface PageProps {
-  params: Promise<{ id: string }> | { id: string };
-}
-
-export default async function ProjectPage({ params }: PageProps) {
-  // Handle params as a possible Promise
-  const resolvedParams = await Promise.resolve(params); 
-  const projectId = parseInt(resolvedParams.id, 10);
-  const project = projects.find((p) => parseInt(p.id) === projectId);
+export default function ProjectPage({ params }: { params: { id: string } }) {
+  const projectId = parseInt(params.id, 10);
+  const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
     return (
@@ -27,8 +21,7 @@ export default async function ProjectPage({ params }: PageProps) {
     );
   }
 
-  const Icon = project.icon;
-
+  const Icon=project.icon
   return (
     <div className="flex justify-center min-h-screen p-4">
       <Card className="w-full max-w-4xl md:w-[44.5%] shadow-lg bg-zinc-100 dark:bg-zinc-900/90 text-zinc-900 dark:text-white p-4 md:p-8 space-y-6">
@@ -47,6 +40,7 @@ export default async function ProjectPage({ params }: PageProps) {
             </div>
             <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">{project.name}</h1>
           </div>
+
 
           <p className="text-zinc-600 dark:text-gray-400 leading-relaxed">{project.description}</p>
 
@@ -84,10 +78,11 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
 
         <div className="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800">
-          <OtherProjects currentProjectId={parseInt(project.id)} projects={projects} />
+          <OtherProjects currentProjectId={project.id} projects={projects} />
         </div>
         <Footer />
       </Card>
     </div>
   );
 }
+
