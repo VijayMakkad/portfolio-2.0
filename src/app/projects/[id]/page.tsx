@@ -15,7 +15,7 @@ export default async function ProjectPage({ params }: PageProps) {
   // Handle params as a possible Promise
   const resolvedParams = await Promise.resolve(params); 
   const projectId = parseInt(resolvedParams.id, 10);
-  const project = projects.find((p) => p.id === projectId);
+  const project = projects.find((p) => parseInt(p.id) === projectId);
 
   if (!project) {
     return (
@@ -84,7 +84,7 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
 
         <div className="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800">
-          <OtherProjects currentProjectId={project.id} projects={projects} />
+          <OtherProjects currentProjectId={parseInt(project.id)} projects={projects} />
         </div>
         <Footer />
       </Card>
