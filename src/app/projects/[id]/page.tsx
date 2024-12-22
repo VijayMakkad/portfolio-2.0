@@ -8,13 +8,11 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
-export default async function ProjectPage({ params }: PageProps) {
-  // Await the params
-  const { id } = await params;
-  const projectId = parseInt(id, 10);
+export default function ProjectPage({ params }: PageProps) {
+  const projectId = parseInt(params.id, 10);
   const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
@@ -26,6 +24,8 @@ export default async function ProjectPage({ params }: PageProps) {
       </div>
     );
   }
+
+  const Icon = project.icon;
 
   return (
     <div className="flex justify-center min-h-screen p-4">
@@ -41,7 +41,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <div className="space-y-4">
           <div className="flex items-center gap-4">
             <div className={`h-12 w-12 rounded-full ${project.color} flex items-center justify-center text-white`}>
-              {project.icon}
+              <Icon className="h-6 w-6" />
             </div>
             <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">{project.name}</h1>
           </div>

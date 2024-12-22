@@ -1,12 +1,13 @@
-import { LucideIcon } from 'lucide-react';
+import { type LucideIcon } from 'lucide-react';
 
 export interface Project {
   id: number;
   name: string;
   description: string;
   tags?: string[];
-  icon?: JSX.Element;
+  icon: LucideIcon;
   color?: string;
   liveLink?: string;
   githubRepo?: string;
 }
+

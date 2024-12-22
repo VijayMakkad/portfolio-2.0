@@ -1,28 +1,26 @@
 // PortfolioCard.jsx
-"use client"
+"use client";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight,
-  PlusCircle,
-} from "lucide-react";
+import { ArrowRight, PlusCircle } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { projects } from "./projects/data";
+import { ProjectCard } from "@/components/ProjectCards";
 
 const PortfolioCard = () => {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("vijaymakkad0104@gmail.com").then(() => {
       toast({
         title: "Email copied!",
         description: "The email has been copied to your clipboard.",
-      })
-    })
-  }
+      });
+    });
+  };
   return (
     <div className="flex items-center justify-center min-h-screen p-4 ">
       <Card className="w-full max-w-4xl md:w-[44.5%] shadow-lg bg-zinc-100 dark:bg-zinc-900/90 text-zinc-900 dark:text-white p-4 md:p-8 space-y-6 md:space-y-8">
@@ -101,36 +99,46 @@ const PortfolioCard = () => {
             </Button>
           </div>
 
-          <div className="space-y-2">
-            {projects.filter((_, index) => index % 2 === 0).slice(0,3).map((project, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-4 bg-zinc-200/50 hover:bg-zinc-300/50 dark:bg-zinc-600/50 dark:hover:bg-zinc-700/50 rounded-lg cursor-pointer transition-colors"
-              >
-                <Link href={`/projects/${project.id}`}>
-                <div className="flex items-center gap-4">
-                  <div
-                    className={`h-10 w-10 rounded-full ${project.color} flex items-center justify-center text-white`}
-                  >
-                    {project.icon}
-                  </div>
-                  <div>
-                    <div className="font-medium">{project.name}</div>
-                    <div className="text-sm text-zinc-600 dark:text-gray-400">
-                      {project.tags?.join(", ")}
-                    </div>
-                  </div>
-                </div>
-                </Link>
-                <ArrowRight className="h-4 w-4 text-zinc-600 dark:text-gray-400" />
-              </div>
-            ))}
+          <div className="space-y-4">
+            {projects
+              .filter((_, index) => index % 2 === 0)
+              .slice(0, 3)
+              .map((project) => (
+                // <div
+                //   key={index}
+                //   className="flex items-center justify-between p-4 bg-zinc-200/50 hover:bg-zinc-300/50 dark:bg-zinc-600/50 dark:hover:bg-zinc-700/50 rounded-lg cursor-pointer transition-colors"
+                // >
+                //   <Link href={`/projects/${project.id}`}>
+                //   <div className="flex items-center gap-4">
+                //     <div
+                //       className={`h-10 w-10 rounded-full ${project.color} flex items-center justify-center text-white`}
+                //     >
+                //       {project.icon}
+                //     </div>
+                //     <div>
+                //       <div className="font-medium">{project.name}</div>
+                //       <div className="text-sm text-zinc-600 dark:text-gray-400">
+                //         {project.tags?.join(", ")}
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </Link>
+                <Card
+                  key={project.id}
+                  className="bg-white dark:bg-zinc-900/50 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors"
+                >
+                  <ProjectCard project={project} />
+                </Card>
+                // </div>
+              ))}
           </div>
         </div>
 
         {/* Products Section */}
         <div className="space-y-4 shadow-lg bg-white dark:bg-zinc-800/50 rounded-lg p-4 md:p-5">
-          <span className="text-zinc-600 dark:text-gray-400">• Testimonials</span>
+          <span className="text-zinc-600 dark:text-gray-400">
+            • Testimonials
+          </span>
           <div className="space-y-2">
             {[
               { name: "Portafo", tag: "FRAMER TEMPLATE" },
