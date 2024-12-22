@@ -8,21 +8,12 @@ import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 
 interface PageProps {
-  params: { id: string } | Promise<{ id: string }>;
+  params: Promise<{ id: string }> | { id: string };
 }
-// export async function generateMetadata({ params }: PageProps) {
-//   const projectId = parseInt(params.id, 10);
-//   const project = projects.find((p) => p.id === projectId);
-
-//   if (!project) {
-//     return { title: 'Project Not Found' };
-//   }
-
-//   return { title: project.name };
-// }
 
 export default async function ProjectPage({ params }: PageProps) {
-  const resolvedParams = await params; // Handle 'params' as a possible promise
+  // Handle params as a possible Promise
+  const resolvedParams = await Promise.resolve(params); 
   const projectId = parseInt(resolvedParams.id, 10);
   const project = projects.find((p) => p.id === projectId);
 
