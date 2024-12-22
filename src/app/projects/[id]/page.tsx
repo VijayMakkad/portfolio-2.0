@@ -10,14 +10,14 @@ import { Button } from '@/components/ui/button';
 
 interface PageProps {
     params: { id: string };
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+    searchParams: { [key: string]: string | string[] | undefined };
   }
   
-export default async function ProjectPage({ params, searchParams }: PageProps) {
+  export default async function ProjectPage({ params, searchParams }: PageProps) {
     const resolvedSearchParams = await searchParams; // Resolve the searchParams
     const projectId = parseInt(params.id, 10); // Parse the id as a number
     const project = projects.find((p) => p.id === projectId);
-
+  
   if (!project) {
     return (
       <div className="flex justify-center min-h-screen p-4">
