@@ -8,13 +8,14 @@ import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 
-interface ProjectPageProps {
+interface PageProps {
   params: {
     id: string;
   }
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
+export default async function ProjectPage({ params, searchParams }: PageProps) {
   const project = projects.find(p => p.id === parseInt(params.id));
 
   if (!project) {
