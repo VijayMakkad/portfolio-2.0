@@ -8,17 +8,16 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Metadata } from 'next';
 
-type Params = {
-  id: number;
-}
+type Params = Promise<{ id: string }>;
 
 type Props = {
   params: Params;
   searchParams: { [key: string]: string | string[] | undefined };
-}
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const projectId = (params.id, 10);
+  const resolvedParams = await params;
+  const projectId = parseInt(resolvedParams.id, 10);
   const project = projects.find((p) => p.id === projectId);
   return {
     title: project ? `${project.name} | Projects` : 'Project Not Found',
@@ -26,8 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ProjectPage({ params }: Props) {
-  const projectId = (params.id, 10);
+export default async function ProjectPage({ params }: Props) {
+  const resolvedParams = await params;
+  const projectId = parseInt(resolvedParams.id, 10);
   const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
