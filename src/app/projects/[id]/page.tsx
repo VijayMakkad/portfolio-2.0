@@ -9,24 +9,27 @@ import { Button } from "@/components/ui/button";
 import { Metadata } from 'next';
 
 type Params = Promise<{ id: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 type Props = {
   params: Params;
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: SearchParams;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const projectId = parseInt(resolvedParams.id, 10);
   const project = projects.find((p) => p.id === projectId);
+  
   return {
     title: project ? `${project.name} | Projects` : 'Project Not Found',
     description: project ? project.description : 'Project details not available',
   };
 }
 
-export default async function ProjectPage({ params }: Props) {
+export default async function ProjectPage({ params, searchParams }: Props) {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const projectId = parseInt(resolvedParams.id, 10);
   const project = projects.find((p) => p.id === projectId);
 
@@ -121,4 +124,3 @@ export default async function ProjectPage({ params }: Props) {
     </div>
   );
 }
-
