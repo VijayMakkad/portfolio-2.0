@@ -8,11 +8,15 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Metadata } from 'next';
 
-interface PageProps {
-  params: { id: string };
+type Params = {
+  id: string;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+type Props = {
+  params: Params;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const projectId = parseInt(params.id, 10);
   const project = projects.find((p) => p.id === projectId);
   return {
@@ -21,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function ProjectPage({ params }: PageProps) {
+export default function ProjectPage({ params }: Props) {
   const projectId = parseInt(params.id, 10);
   const project = projects.find((p) => p.id === projectId);
 

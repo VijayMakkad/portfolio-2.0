@@ -58,3 +58,4 @@ export const projects: Project[] = [
     githubRepo: "https://github.com/VijayMakkad/meeting-web-app",
   },
 ];
+
