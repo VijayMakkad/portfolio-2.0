@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { ChevronLeft, Github, Globe } from "lucide-react";
+import { ChevronLeft, Github, Globe } from 'lucide-react';
 import { projects } from "../data";
 import { OtherProjects } from "../../../components/OtherProjects";
 import Link from "next/link";
@@ -11,9 +11,8 @@ interface ProjectPageProps {
   params: { id: string };
 }
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { id } = await params; // Ensure params are awaited
-  const projectId = parseInt(id, 10); // Parse ID from URL
+export default function ProjectPage({ params }: ProjectPageProps) {
+  const projectId = parseInt(params.id, 10); // Parse ID from URL
   const project = projects.find((p) => p.id === projectId); // Match project by ID
 
   if (!project) {
@@ -107,3 +106,4 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     </div>
   );
 }
+
