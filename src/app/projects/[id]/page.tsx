@@ -6,14 +6,24 @@ import { OtherProjects } from "../../../components/OtherProjects";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Metadata } from 'next';
 
-interface ProjectPageProps {
+interface PageProps {
   params: { id: string };
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const projectId = parseInt(params.id, 10); // Parse ID from URL
-  const project = projects.find((p) => p.id === projectId); // Match project by ID
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const projectId = parseInt(params.id, 10);
+  const project = projects.find((p) => p.id === projectId);
+  return {
+    title: project ? `${project.name} | Projects` : 'Project Not Found',
+    description: project ? project.description : 'Project details not available',
+  };
+}
+
+export default function ProjectPage({ params }: PageProps) {
+  const projectId = parseInt(params.id, 10);
+  const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
     return (
