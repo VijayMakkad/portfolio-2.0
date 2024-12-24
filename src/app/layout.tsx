@@ -16,8 +16,8 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Vijay Makkad",
-  description: "Dynamic Portfolio using Next.js",
-};
+  description: "Know about Vijay Makkad!",
+}
 
 export default function RootLayout({
   children,

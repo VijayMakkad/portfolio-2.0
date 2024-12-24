@@ -92,9 +92,9 @@ const ParticlesBackground = ({ id, className }: ParticlesBackgroundProps) => {
         number: {
           density: {
             enable: true,
-            area: 800,
+            area: 1000,
           },
-          value: 90,
+          value: 150,
         },
         opacity: {
           value: resolvedTheme === "dark" ? 0.3 : 0.7,
