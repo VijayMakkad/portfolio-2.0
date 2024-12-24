@@ -2,51 +2,31 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation"; // Use usePathname for simplicity in Next.js 13+
-import {
-  Home,
-  UserCircle,
-  CodeSquareIcon,
-  Sun,
-  MoonStarIcon,
-  PlusCircle,
-  TrendingUp,
-} from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Home, UserCircle, CodeSquareIcon, Sun, MoonStarIcon, PlusCircle, TrendingUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
-  const pathname = usePathname(); // Replaces useRouter().pathname
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    }
-    return true;
-  });
-
+  const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
   const [activeLink, setActiveLink] = useState("home");
-
-  const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
-  };
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (isDarkMode) {
-      root.classList.add("dark");
-      root.classList.remove("light");
-    } else {
-      root.classList.add("light");
-      root.classList.remove("dark");
-    }
-  }, [isDarkMode]);
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
-    // Update active link based on the current route
     if (pathname) {
       const currentRoute = pathname === "/" ? "home" : pathname.slice(1);
       setActiveLink(currentRoute);
     }
   }, [pathname]);
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   const navItems = [
     { id: "home", icon: <Home className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Home" },
@@ -55,10 +35,14 @@ export default function Navbar() {
     { id: "projects", icon: <CodeSquareIcon className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Projects" },
   ];
 
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <nav className={`flex h-[80px] my-6 sm:h-[100px] items-center justify-center w-full transition-colors px-2 sm:px-4`}>
-      <div className={`flex items-center w-full sm:w-2/5 gap-2 sm:gap-4 px-2 sm:px-4 py-2 sm:py-4 rounded-xl ${
-        isDarkMode ? "bg-zinc-800/50" : "bg-zinc-100 shadow-lg"
+      <div className={`flex z-10 items-center w-full sm:w-2/5 gap-2 sm:gap-4 px-2 sm:px-4 py-2 sm:py-4 rounded-xl ${
+        theme === "dark" ? "bg-zinc-800/50" : "bg-zinc-100 shadow-lg"
       }`}>
         {/* Navigation Links */}
         <div className="flex justify-start flex-1 gap-1 sm:gap-2 md:gap-4">
@@ -67,15 +51,15 @@ export default function Navbar() {
               <Link href={`/${item.id === "home" ? "" : item.id}`}>
                 <div
                   className={`p-1 sm:p-2 rounded-full transition-all ease-in-out cursor-pointer ${
-                    isDarkMode
+                    theme === "dark"
                       ? "text-zinc-400 hover:text-white"
                       : "text-gray-700 hover:text-black"
                   } ${
                     activeLink === item.id
-                      ? isDarkMode
+                      ? theme === "dark"
                         ? "text-white bg-zinc-700 [&>svg]:text-white"
                         : "text-black bg-gray-400 [&>svg]:text-black"
-                      : `hover:bg-${isDarkMode ? "zinc-700" : "gray-400"}`
+                      : `hover:bg-${theme === "dark" ? "zinc-700" : "gray-400"}`
                   }`}
                 >
                   {item.icon}
@@ -84,7 +68,7 @@ export default function Navbar() {
 
               <span
                 className={`absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-xs sm:text-sm py-1 px-2 rounded-full whitespace-nowrap ${
-                  isDarkMode ? "bg-zinc-800 text-white" : "bg-gray-50 text-black"
+                  theme === "dark" ? "bg-zinc-800 text-white" : "bg-gray-50 text-black"
                 }`}
               >
                 {item.label}
@@ -100,12 +84,12 @@ export default function Navbar() {
             <button
               onClick={toggleTheme}
               className={`p-1 sm:p-2 rounded-full transition-colors ease-in-out ${
-                isDarkMode
+                theme === "dark"
                   ? "text-zinc-400 hover:text-white"
                   : "text-gray-700 hover:text-black"
               }`}
             >
-              {isDarkMode ? (
+              {theme === "dark" ? (
                 <Sun className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-400" />
               ) : (
                 <MoonStarIcon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-800" />
@@ -117,7 +101,7 @@ export default function Navbar() {
           <Button
             size="sm"
             className={`h-8 sm:h-9 px-2 text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-2 ${
-              isDarkMode
+              theme === "dark"
                 ? "bg-zinc-600 text-white hover:bg-zinc-800"
                 : "bg-white text-black hover:bg-gray-400"
             }`}
@@ -130,3 +114,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

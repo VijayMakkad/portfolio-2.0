@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { projects } from "./projects/data";
 import { ProjectCard } from "@/components/ProjectCards";
+// import ParticlesBackground from "@/components/ParticlesBackground";
 
 const PortfolioCard = () => {
   const { toast } = useToast();
@@ -23,6 +24,7 @@ const PortfolioCard = () => {
   };
   return (
     <div className="flex items-center justify-center min-h-screen p-4 ">
+      {/* <ParticlesBackground id="particles" className="absolute inset-0 z-0"/> */}
       <Card className="w-full max-w-4xl md:w-[44.5%] shadow-lg bg-zinc-100 dark:bg-zinc-900/90 text-zinc-900 dark:text-white p-4 md:p-8 space-y-6 md:space-y-8">
         {/* Header Section */}
         <div className="space-y-1">
