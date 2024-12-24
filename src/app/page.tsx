@@ -54,7 +54,7 @@ const PortfolioCard = () => {
                 className="bg-white text-black dark:bg-zinc-800 dark:text-white hover:bg-zinc-300 dark:hover:bg-zinc-600"
               >
                 <PlusCircle className="mr-2" />
-                <Link href={'/contact'}>Contact Me</Link>
+                <Link href={"/contact"}>Contact Me</Link>
               </Button>
               <Button
                 size="sm"
@@ -143,21 +143,38 @@ const PortfolioCard = () => {
           </span>
           <div className="space-y-2">
             {[
-              { name: "Portafo", tag: "FRAMER TEMPLATE" },
-              { name: "Faktur Invoice", tag: "FRAMER TEMPLATE" },
-              { name: "Goven", tag: "FRAMER TEMPLATE" },
-              { name: "Subtle Folio", tag: "FRAMER TEMPLATE" },
+              {
+                name: "Suraj Das",
+                tag: "Project Head, Jindal Steel and Power",
+                testimonial:
+                  "Vijay's full-stack expertise delivered a seamless solution that revolutionized our night surveillance with real-time monitoring and efficiency.",
+              },
+              {
+                name: "Shreyans Bhargava",
+                tag: "COO at Fuelemy",
+                testimonial:
+                  "Working with Vijay was a pleasure. His technical skills are exceptional, and he consistently goes above and beyond to ensure the success of the project.",
+              },
+              {
+                name: "Chandan Singh",
+                tag: "Technical Head",
+                testimonial:
+                  "Vijay's expertise in front-end and back-end development, along with his seamless collaboration using Git and Postman, made him an invaluable asset to the Organization.",
+              },
             ].map((product, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-4 bg-zinc-200/50 hover:bg-zinc-300/50 dark:bg-zinc-600/50 dark:hover:bg-zinc-700/50 rounded-lg cursor-pointer transition-colors"
+                className="flex flex-col gap-2 p-4 bg-zinc-200/50 hover:bg-zinc-300/50 dark:bg-zinc-600/50 dark:hover:bg-zinc-700/50 rounded-lg cursor-pointer transition-colors"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-between">
                   <div className="font-medium">{product.name}</div>
+                  <span className="text-xs text-zinc-500 dark:text-gray-500">
+                    {product.tag}
+                  </span>
                 </div>
-                <span className="text-xs text-zinc-500 dark:text-gray-500">
-                  {product.tag}
-                </span>
+                <p className="text-sm text-zinc-600 dark:text-gray-400">
+                  {product.testimonial}
+                </p>
               </div>
             ))}
           </div>
