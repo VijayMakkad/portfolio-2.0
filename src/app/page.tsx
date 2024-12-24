@@ -54,7 +54,7 @@ const PortfolioCard = () => {
                 className="bg-white text-black dark:bg-zinc-800 dark:text-white hover:bg-zinc-300 dark:hover:bg-zinc-600"
               >
                 <PlusCircle className="mr-2" />
-                Hire Me
+                <Link href={'/contact'}>Contact Me</Link>
               </Button>
               <Button
                 size="sm"

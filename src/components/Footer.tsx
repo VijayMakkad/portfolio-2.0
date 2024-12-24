@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Instagram, Linkedin, Github,PlusCircle, Clipboard, FileText } from "lucide-react";
 import { useToast } from "../hooks/use-toast";
+import Link from "next/link";
 
 export const Footer = () => {
   const { toast } = useToast();
@@ -40,7 +41,9 @@ export const Footer = () => {
             size="sm"
             className="bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-zinc-900 dark:text-white"
           >
-            <PlusCircle/>Hire Me
+            <PlusCircle/>
+            <Link href={'/contact'}>Contact Me
+            </Link>
           </Button>
           <Button
             size="sm"

@@ -109,7 +109,7 @@ export default function Navbar() {
             }`}
           >
             <PlusCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-            <span className="xs:inline">Hire Me</span>
+            <Link href={"/contact"}><span className="xs:inline">Contact Me</span></Link>
           </Button>
         </div>
       </div>

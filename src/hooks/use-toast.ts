@@ -1,6 +1,3 @@
-"use client"
-
-// Inspired by react-hot-toast library
 import * as React from "react"
 
 import type {
@@ -115,6 +112,7 @@ export const reducer = (state: State, action: Action): State => {
         ),
       }
     }
+
     case "REMOVE_TOAST":
       if (action.toastId === undefined) {
         return {
@@ -192,3 +190,4 @@ function useToast() {
 }
 
 export { useToast, toast }
+
