@@ -74,7 +74,7 @@ export default function ContactPage() {
       <Card className={`w-full max-w-4xl md:w-[44.5%] shadow-lg ${isDarkTheme ? 'bg-zinc-900/90 text-white' : 'bg-white text-zinc-900'} p-4 md:p-8 space-y-6 md:space-y-8`}>
         {/* Header Section */}
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <div className="flex sm:flex-row items-start sm:items-center justify-between gap-2">
             <span className={`${isDarkTheme ? 'text-zinc-400' : 'text-zinc-600'} flex items-center gap-2`}>
               <span className={`w-1.5 h-1.5 ${isDarkTheme ? 'bg-zinc-400' : 'bg-zinc-600'} rounded-full`} />
               Hire Me
