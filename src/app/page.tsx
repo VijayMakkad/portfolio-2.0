@@ -147,19 +147,19 @@ const PortfolioCard = () => {
                 name: "Suraj Das",
                 tag: "Project Head, Jindal Steel and Power",
                 testimonial:
-                  "Vijay's full-stack expertise delivered a seamless solution that revolutionized our night surveillance with real-time monitoring and efficiency.",
+                  `"Vijay's full-stack expertise delivered a seamless solution that revolutionized our night surveillance with real-time monitoring and efficiency."`,
               },
               {
                 name: "Shreyans Bhargava",
                 tag: "COO at Fuelemy",
                 testimonial:
-                  "Working with Vijay was a pleasure. His technical skills are exceptional, and he consistently goes above and beyond to ensure the success of the project.",
+                  `"Working with Vijay was a pleasure. His technical skills are exceptional, and he consistently goes above and beyond to ensure the success of the project."`,
               },
               {
                 name: "Chandan Singh",
-                tag: "Technical Head",
+                tag: "Technical Head, EasyGold",
                 testimonial:
-                  "Vijay's expertise in front-end and back-end development, along with his seamless collaboration using Git and Postman, made him an invaluable asset to the Organization.",
+                  `"Vijay's expertise in front-end and back-end development, along with his seamless collaboration using Git and Postman, made him an invaluable asset to the Organization."`,
               },
             ].map((product, index) => (
               <div

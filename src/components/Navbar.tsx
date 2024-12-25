@@ -12,10 +12,14 @@ export default function Navbar() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [activeLink, setActiveLink] = useState("home");
   const [mounted, setMounted] = useState(false);
+  const [hasManualPreference, setHasManualPreference] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (!hasManualPreference) {
+      setTheme('system');
+    }
+  }, [setTheme, hasManualPreference]);
 
   useEffect(() => {
     if (pathname) {
@@ -25,7 +29,8 @@ export default function Navbar() {
   }, [pathname]);
 
   const toggleTheme = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setHasManualPreference(true);
+    setTheme(currentTheme === "dark" ? "light" : "dark");
   };
 
   const navItems = [
@@ -116,4 +121,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
