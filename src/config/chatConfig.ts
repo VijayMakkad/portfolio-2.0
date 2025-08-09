@@ -65,5 +65,5 @@ Interaction Rules:
     maxOutputTokens: 8192,
   },
   botName: "VM Bot",
-  modelName: "gemini-ultra-1.0"
+  modelName: "gemini-2.5-flash"
 };
