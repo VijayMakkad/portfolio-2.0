@@ -76,27 +76,35 @@ const formatMessage = (text: string): string => {
   formattedText = formattedText.replace(/^# (.*$)/gm, '<h1>$1</h1>');
   formattedText = formattedText.replace(/^## (.*$)/gm, '<h2>$1</h2>');
 
-  // Process bold text - handle both **** and ** patterns
+  // Process bold text
   formattedText = formattedText.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<strong>$1</strong>');
   formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-  // Process bullet points and create html structure
+ formattedText = formattedText.replace(
+  /\b((https?:\/\/|www\.)[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?)/g,
+  (url) => {
+    let href = url;
+    if (!href.startsWith('http')) {
+      href = `https://${href}`;
+    }
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">${url}</a>`;
+  }
+);
+
+  // Process bullet points
   const lines = formattedText.split('\n');
   let inList = false;
-  let processedLines = [];
-  let currentList = [];
+  let processedLines: string[] = [];
+  let currentList: string[] = [];
 
   for (const line of lines) {
     const trimmedLine = line.trim();
-    
     if (trimmedLine.startsWith('*')) {
       if (!inList) {
         inList = true;
         currentList = [];
       }
-      // Remove the asterisk and trim
-      const listItemContent = trimmedLine.substring(1).trim();
-      currentList.push(`<li>${listItemContent}</li>`);
+      currentList.push(`<li>${trimmedLine.substring(1).trim()}</li>`);
     } else {
       if (inList) {
         processedLines.push(`<ul>${currentList.join('')}</ul>`);
@@ -109,7 +117,6 @@ const formatMessage = (text: string): string => {
     }
   }
 
-  // Handle any remaining list items
   if (inList && currentList.length > 0) {
     processedLines.push(`<ul>${currentList.join('')}</ul>`);
   }

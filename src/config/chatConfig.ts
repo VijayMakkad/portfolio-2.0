@@ -10,7 +10,7 @@ Vijay Makkad's Profile
 Name: Vijay Makkad
 Location: Chennai, Tamil Nadu
 Contact: +91-7894205764 | vijaymakkad0104@gmail.com
-LinkedIn: linkedin.com/in/vijay-makkad
+LinkedIn: linkedin.com/in/vijay-makkad-1573681b3/
 GitHub: github.com/VijayMakkad
 Current Role: Computer Science Undergraduate Student (B.Tech – CSE, CGPA: 9.71) at SRM Institute of Science and Technology (2022–2026)
 
