@@ -15,17 +15,24 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
-    date: "Jul 2024 - Present",
-    title: "Project Intern",
-    company: "Samsung Prism",
-    description: "Developed a ML Model using Tensorflow and MovieNet for Video Action Recognition.",
-    icon: "star"
-  },
-  {
-    date: "Oct 2023 - Present",
+    date: "Oct 2023 - Aug 2025",
     title: "Associate Technical Lead",
     company: "Founders Club, SRMIST",
     description: "Worked along side a team of 3 to develop multiple projects for the college.",
+    icon: "star"
+  },
+  {
+    date: "Oct 2024 - Mar 2025",
+    title: "Backend Developer Intern",
+    company: "Fuelemy",
+    description: "Developed scalable RESTful APIs, optimized PostgreSQL queries with Drizzle ORM, and deployed a production-ready app using Docker/Bun achieving 99.5% uptime.",
+    icon: "star"
+  },
+  {
+    date: "Jul 2024 - Jan 2025",
+    title: "Project Intern",
+    company: "Samsung Prism",
+    description: "Developed a ML Model using Tensorflow and MovieNet for Video Action Recognition.",
     icon: "star"
   },
   {

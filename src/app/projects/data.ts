@@ -1,4 +1,4 @@
-import { Bot, MonitorCheck, Hand, Video, QrCode } from 'lucide-react';
+import { Bot, MonitorCheck, Hand, Video, QrCode, Mic, FileText, MessageCircle } from 'lucide-react';
 import { Project } from '../../types/project';
 
 export const projects: Project[] = [
@@ -26,36 +26,36 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    name: "Turn Out",
+    name: "SpeakEasy App",
     description:
-      "Mobile scanner app built with React Native. Features seamless interactivity, history management, database connection, and event setup capabilities.",
-    tags: ["ReactNative", "Supabase", "Tamagui", "Tailwind"],
-    icon: QrCode,
+      "Real-time voice translator with 95% speech recognition accuracy, 98% translation accuracy, dark/light themes, and support for 100+ languages.",
+    tags: ["React Native", "Expo", "TypeScript", "Node.js", "Python"],
+    icon: Mic, 
     color: "bg-orange-600",
-    liveLink: "https://github.com/VijayMakkad/TurnOut",
-    githubRepo: "https://github.com/VijayMakkad/TurnOut",
+    liveLink: "https://github.com/VijayMakkad/voice-translator",
+    githubRepo: "https://github.com/VijayMakkad/voice-translator",
   },
   {
     id: 4,
-    name: "Hand Gesture Detection",
+    name: "AI Text Summarization App",
     description:
-      "Built with Python and TensorFlow, this project detects letters and shapes from hand gestures, showcasing advanced machine learning capabilities.",
-    tags: ["React", "TensorFlow", "Python"],
-    icon: Hand,
+      "Abstractive text summarizer using fine-tuned BART model with FastAPI backend, GPU optimization, and real-time React.js frontend.",
+    tags: ["FastAPI", "HuggingFace", "BART", "React.js"],
+    icon: FileText, // replace with your document/text icon component
     color: "bg-orange-200",
-    liveLink: "https://github.com/VijayMakkad/Hand-gesture-detection",
-    githubRepo: "https://github.com/VijayMakkad/Hand-gesture-detection",
+    liveLink: "https://github.com/VijayMakkad/text-summarization-app",
+    githubRepo: "https://github.com/VijayMakkad/text-summarization-app"
   },
   {
-    id: 5,
-    name: "Makkad Meet",
+    id: 6,
+    name: "MingleMate",
     description:
-      "A web-based meeting application with features comparable to Zoom. Built using Next.js, Tailwind, and Clerk for authentication.",
-    tags: ["NextJs", "Tailwind", "Clerk", "Video Stream"],
-    icon: Video,
-    color: "bg-blue-700",
-    liveLink: "https://meeting-web-app-nine.vercel.app",
-    githubRepo: "https://github.com/VijayMakkad/meeting-web-app",
+      "Real-time chat app supporting 100+ concurrent users with secure JWT authentication, optimized MongoDB queries, and responsive Tailwind CSS UI.",
+    tags: ["React.js", "Node.js", "Socket.io", "MongoDB", "Tailwind CSS"],
+    icon: MessageCircle, // replace with your preferred chat/message icon component
+    color: "bg-green-600",
+    liveLink: "https://github.com/VijayMakkad/Chat-App",
+    githubRepo: "https://chat-app-7pwc.onrender.com/"
   },
 ];
 
