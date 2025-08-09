@@ -54,8 +54,8 @@ export const projects: Project[] = [
     tags: ["React.js", "Node.js", "Socket.io", "MongoDB", "Tailwind CSS"],
     icon: MessageCircle, // replace with your preferred chat/message icon component
     color: "bg-green-600",
-    liveLink: "https://github.com/VijayMakkad/Chat-App",
-    githubRepo: "https://chat-app-7pwc.onrender.com/"
+    liveLink: "https://chat-app-7pwc.onrender.com/",
+    githubRepo: "https://github.com/VijayMakkad/Chat-App",
   },
 ];
 
