@@ -1,4 +1,4 @@
-import { type LucideIcon } from 'lucide-react';
+import { type LucideIcon } from "lucide-react";
 
 export interface Project {
   id: number;
@@ -9,5 +9,7 @@ export interface Project {
   color?: string;
   liveLink?: string;
   githubRepo?: string;
+  stars?: number;
+  forks?: number;
+  featured?: boolean;
 }
-

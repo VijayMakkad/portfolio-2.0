@@ -3,121 +3,147 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Home, UserCircle, CodeSquareIcon, Sun, MoonStarIcon, PlusCircle, TrendingUp } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import {
+  Home,
+  User,
+  Briefcase,
+  Code2,
+  Sun,
+  Moon,
+  Mail,
+} from "lucide-react";
 import { useTheme } from "next-themes";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import TimeDisplay from "@/components/TimeDisplay";
+import ThemeCustomizer from "@/components/ThemeCustomizer";
+
+const navItems = [
+  { id: "home", href: "/", icon: Home, label: "Home" },
+  { id: "about", href: "/about", icon: User, label: "About" },
+  { id: "experience", href: "/experience", icon: Briefcase, label: "Experience" },
+  { id: "projects", href: "/projects", icon: Code2, label: "Projects" },
+];
 
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, setTheme, resolvedTheme } = useTheme();
-  const [activeLink, setActiveLink] = useState("home");
   const [mounted, setMounted] = useState(false);
-  const [hasManualPreference, setHasManualPreference] = useState(false);
+  const { scrollY } = useScroll();
+  const bgOpacity = useTransform(scrollY, [0, 100], [0.6, 0.9]);
 
   useEffect(() => {
     setMounted(true);
-    if (!hasManualPreference) {
-      setTheme('system');
-    }
-  }, [setTheme, hasManualPreference]);
+  }, []);
 
-  useEffect(() => {
-    if (pathname) {
-      const currentRoute = pathname === "/" ? "home" : pathname.slice(1);
-      setActiveLink(currentRoute);
-    }
-  }, [pathname]);
-
-  const toggleTheme = () => {
-    setHasManualPreference(true);
-    setTheme(currentTheme === "dark" ? "light" : "dark");
-  };
-
-  const navItems = [
-    { id: "home", icon: <Home className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Home" },
-    { id: "about", icon: <UserCircle className="h-5 w-5 sm:h-7 sm:w-7" />, label: "About" },
-    { id: "experience", icon: <TrendingUp className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Experience" },
-    { id: "projects", icon: <CodeSquareIcon className="h-5 w-5 sm:h-7 sm:w-7" />, label: "Projects" },
-  ];
-
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   const currentTheme = theme === "system" ? resolvedTheme : theme;
+  const isDark = currentTheme === "dark";
+
+  const activeId =
+    pathname === "/" ? "home" : navItems.find((n) => pathname.startsWith(n.href) && n.href !== "/")?.id || "home";
 
   return (
-    <nav className={`flex h-[80px] my-6 sm:h-[100px] items-center justify-center w-full transition-colors px-2 sm:px-4`}>
-      <div className={`flex z-10 items-center w-full sm:w-2/5 gap-2 sm:gap-4 px-2 sm:px-4 py-2 sm:py-4 rounded-xl ${
-        currentTheme === "dark" ? "bg-zinc-800/50" : "bg-zinc-100 shadow-lg"
-      }`}>
-        {/* Navigation Links */}
-        <div className="flex justify-start flex-1 gap-1 sm:gap-2 md:gap-4">
-          {navItems.map((item) => (
-            <div key={item.id} className="group relative">
-              <Link href={`/${item.id === "home" ? "" : item.id}`}>
-                <div
-                  className={`p-1 sm:p-2 rounded-full transition-all ease-in-out cursor-pointer ${
-                    currentTheme === "dark"
-                      ? "text-zinc-400 hover:text-white"
-                      : "text-gray-700 hover:text-black"
-                  } ${
-                    activeLink === item.id
-                      ? currentTheme === "dark"
-                        ? "text-white bg-zinc-700 [&>svg]:text-white"
-                        : "text-black bg-gray-400 [&>svg]:text-black"
-                      : `hover:bg-${currentTheme === "dark" ? "zinc-700" : "gray-400"}`
+    <motion.nav
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50"
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <motion.div
+        className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2.5 rounded-2xl glass-panel"
+        style={{
+          // @ts-expect-error -- motion style typing
+          "--tw-bg-opacity": bgOpacity,
+        }}
+      >
+        {/* Nav Links */}
+        <div className="flex items-center gap-1">
+          {navItems.map((item) => {
+            const isActive = activeId === item.id;
+            return (
+              <Link key={item.id} href={item.href}>
+                <motion.div
+                  className={`relative p-2.5 rounded-xl cursor-pointer transition-colors duration-200 ${
+                    isActive
+                      ? "text-white"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                   }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {item.icon}
-                </div>
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-indicator"
+                      className="absolute inset-0 bg-[var(--brand-strong)] rounded-xl"
+                      transition={{
+                        type: "spring",
+                        stiffness: 350,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                  <item.icon className="relative z-10 h-4 w-4 sm:h-5 sm:w-5" />
+                </motion.div>
               </Link>
+            );
+          })}
+        </div>
 
-              <span
-                className={`absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-xs sm:text-sm py-1 px-2 rounded-full whitespace-nowrap ${
-                  currentTheme === "dark" ? "bg-zinc-800 text-white" : "bg-gray-50 text-black"
-                }`}
+        {/* Divider */}
+        <div className="w-px h-6 bg-[var(--border-subtle)] mx-1" />
+
+        {/* Local Time */}
+        <TimeDisplay />
+
+        {/* Theme Customizer */}
+        <ThemeCustomizer />
+
+        {/* Theme Toggle */}
+        <motion.button
+          onClick={() => setTheme(isDark ? "light" : "dark")}
+          className="p-2.5 rounded-xl text-[var(--text-secondary)] hover:text-[var(--brand-strong)] transition-colors duration-200 cursor-pointer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Toggle theme"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {isDark ? (
+              <motion.div
+                key="sun"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
               >
-                {item.label}
-              </span>
-            </div>
-          ))}
-        </div>
+                <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="moon"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
 
-        {/* Right Section */}
-        <div className="flex items-center justify-end gap-2 sm:gap-4">
-          {/* Theme Toggle */}
-          <div className="group relative">
-            <button
-              onClick={toggleTheme}
-              className={`p-1 sm:p-2 rounded-full transition-colors ease-in-out ${
-                currentTheme === "dark"
-                  ? "text-zinc-400 hover:text-white"
-                  : "text-gray-700 hover:text-black"
-              }`}
-            >
-              {currentTheme === "dark" ? (
-                <Sun className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-400" />
-              ) : (
-                <MoonStarIcon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-800" />
-              )}
-            </button>
-          </div>
-
-          {/* Hire Me Button */}
-          <Button
-            size="sm"
-            className={`h-8 sm:h-9 px-2 text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-2 ${
-              currentTheme === "dark"
-                ? "bg-zinc-600 text-white hover:bg-zinc-800"
-                : "bg-white text-black hover:bg-gray-400"
-            }`}
+        {/* Contact CTA */}
+        <Link href="/contact">
+          <motion.div
+            className="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl bg-[var(--brand-strong)] text-white text-xs sm:text-sm font-medium cursor-pointer"
+            whileHover={{ scale: 1.05, boxShadow: "0 0 20px var(--brand-glow)" }}
+            whileTap={{ scale: 0.95 }}
           >
-            <PlusCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-            <Link href={"/contact"}><span className="xs:inline">Contact Me</span></Link>
-          </Button>
-        </div>
-      </div>
-    </nav>
+            <Mail className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Contact</span>
+          </motion.div>
+        </Link>
+      </motion.div>
+    </motion.nav>
   );
 }

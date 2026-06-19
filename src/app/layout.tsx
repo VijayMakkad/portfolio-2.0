@@ -1,23 +1,46 @@
 import type { Metadata } from "next";
-import { Poppins } from 'next/font/google';
+import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ChatBot from "@/components/Chatbot";
 import Navbar from "@/components/Navbar";
 import { vmBotConfig } from "@/config/chatConfig";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
-import ParticlesBackground from "@/components/ParticlesBackground";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Vijay Makkad",
-  description: "Know about Vijay Makkad!",
-}
+  title: "Vijay Makkad — Software Developer & ML Engineer",
+  description:
+    "Portfolio of Vijay Makkad — Full-Stack Developer, ML Engineer, and CS student at SRMIST. Building intelligent systems with AI, React, and Python.",
+  keywords: [
+    "Vijay Makkad",
+    "portfolio",
+    "software developer",
+    "ML engineer",
+    "full-stack",
+    "React",
+    "Next.js",
+    "Python",
+    "AI",
+  ],
+  openGraph: {
+    title: "Vijay Makkad — Software Developer & ML Engineer",
+    description:
+      "Full-Stack Developer, ML Engineer, and CS student at SRMIST.",
+    type: "website",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -26,18 +49,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} antialiased relative min-h-screen`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {/* Particles Background */}
-          <ParticlesBackground id="tsparticles" />
+      <body
+        className={`${geist.variable} ${jetbrainsMono.variable} font-display antialiased relative min-h-screen`}
+      >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {/* Animated Background */}
+          <AnimatedBackground />
 
           {/* Foreground Content */}
           <div className="relative z-10">
             <Navbar />
-            <main className="min-h-screen container mx-auto">
-              {children}
-              <Toaster />
-            </main>
+            <main className="min-h-screen">{children}</main>
+            <Toaster />
             <ChatBot config={vmBotConfig} />
           </div>
         </ThemeProvider>
@@ -45,4 +68,3 @@ export default function RootLayout({
     </html>
   );
 }
-

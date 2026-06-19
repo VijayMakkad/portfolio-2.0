@@ -1,50 +1,42 @@
-'use client'
+"use client";
 
-import { useEffect, useState, FormEvent } from 'react';
-import { useTheme } from 'next-themes';
-import emailjs from '@emailjs/browser';
+import { useEffect, useState, FormEvent } from "react";
+import { useTheme } from "next-themes";
+import emailjs from "@emailjs/browser";
 import { Footer } from "@/components/Footer";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { useToast } from "../../hooks/use-toast";
+import { Send, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { BlurStagger } from "@/components/ui/AnimatedText";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import GlassCard from "@/components/ui/GlassCard";
+import MagnetButton from "@/components/ui/MagnetButton";
 
 export default function ContactPage() {
-  const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     setMounted(true);
-    // Initialize EmailJS with your user ID
     emailjs.init("u9xBEFql84WizMKro");
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
-
-  const isDarkTheme = theme === 'dark' || resolvedTheme === 'dark';
+  if (!mounted) return null;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      await emailjs.send(
-        "service_scttsvv",
-        "template_qow6c28",
-        {
-          from_name: name,
-          from_email: email,
-          message: message,
-        }
-      );
+      await emailjs.send("service_scttsvv", "template_qow6c28", {
+        from_name: name,
+        from_email: email,
+        message: message,
+      });
 
       toast({
         title: "Message sent!",
@@ -52,12 +44,11 @@ export default function ContactPage() {
         duration: 5000,
       });
 
-      // Clear form fields
-      setName('');
-      setEmail('');
-      setMessage('');
+      setName("");
+      setEmail("");
+      setMessage("");
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error("Error sending email:", error);
       toast({
         title: "Error",
         description: "There was an error sending your message. Please try again.",
@@ -70,64 +61,104 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
-      <Card className={`w-full max-w-4xl md:w-[44.5%] shadow-lg ${isDarkTheme ? 'bg-zinc-900/90 text-white' : 'bg-white text-zinc-900'} p-4 md:p-8 space-y-6 md:space-y-8`}>
-        {/* Header Section */}
-        <div className="space-y-6">
-          <div className="flex sm:flex-row items-start sm:items-center justify-between gap-2">
-            <span className={`${isDarkTheme ? 'text-zinc-400' : 'text-zinc-600'} flex items-center gap-2`}>
-              <span className={`w-1.5 h-1.5 ${isDarkTheme ? 'bg-zinc-400' : 'bg-zinc-600'} rounded-full`} />
-              Hire Me
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-28 pb-16 space-y-16">
+      {/* Header */}
+      <div className="space-y-4">
+        <ScrollReveal>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono tracking-widest uppercase text-[var(--text-secondary)]">
+              • Hire Me
             </span>
-            <span className={`${isDarkTheme ? 'bg-green-950/30 text-green-500' : 'bg-green-100 text-green-700'} text-sm px-3 py-1 rounded-full flex items-center gap-2`}>
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+            <span className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono bg-green-500/10 text-green-500 border border-green-500/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
               AVAILABLE FOR WORK
             </span>
           </div>
+        </ScrollReveal>
 
-          <div className="space-y-4">
-            <h1 className="text-4xl font-bold">Let's Collaborate!</h1>
-            <p className={isDarkTheme ? 'text-zinc-400' : 'text-zinc-600'}>Have a project or idea? Let's create something extraordinary together. Reach out now!</p>
-          </div>
+        <BlurStagger
+          text="Let's Collaborate!"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)]"
+        />
 
-          {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <ScrollReveal delay={0.2}>
+          <p className="text-[var(--text-secondary)] text-sm sm:text-base max-w-xl">
+            Have a project or idea? Let&apos;s create something extraordinary
+            together. Reach out now!
+          </p>
+        </ScrollReveal>
+      </div>
+
+      {/* Contact Form */}
+      <ScrollReveal delay={0.3}>
+        <GlassCard className="p-6 sm:p-8" tilt3D={false} glowOnHover={false}>
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input 
-                placeholder="Name" 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+              <div className="space-y-2">
+                <label className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  placeholder="Your name"
+                  className="w-full bg-[var(--surface-elevated)] text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] text-sm px-4 py-3 rounded-xl border border-[var(--border-subtle)] focus:border-[var(--brand-strong)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-strong)] transition-all"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  placeholder="your@email.com"
+                  className="w-full bg-[var(--surface-elevated)] text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] text-sm px-4 py-3 rounded-xl border border-[var(--border-subtle)] focus:border-[var(--brand-strong)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-strong)] transition-all"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-mono text-[var(--text-secondary)] uppercase tracking-wider">
+                Message
+              </label>
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 required
-                className={`${isDarkTheme ? 'bg-zinc-800/50 border-zinc-700 text-white' : 'bg-zinc-100 border-zinc-300 text-zinc-900'} placeholder:text-zinc-500`}
-              />
-              <Input 
-                type="email" 
-                placeholder="Email Address" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className={`${isDarkTheme ? 'bg-zinc-800/50 border-zinc-700 text-white' : 'bg-zinc-100 border-zinc-300 text-zinc-900'} placeholder:text-zinc-500`}
+                placeholder="Tell me about your project..."
+                rows={6}
+                className="w-full bg-[var(--surface-elevated)] text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] text-sm px-4 py-3 rounded-xl border border-[var(--border-subtle)] focus:border-[var(--brand-strong)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-strong)] transition-all resize-none"
               />
             </div>
-            <Textarea 
-              placeholder="Message" 
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-              className={`${isDarkTheme ? 'bg-zinc-800/50 border-zinc-700 text-white' : 'bg-zinc-100 border-zinc-300 text-zinc-900'} placeholder:text-zinc-500 min-h-[150px]`}
-            />
-            <Button 
+
+            <motion.button
               type="submit"
               disabled={isLoading}
-              className={`w-full ${isDarkTheme ? 'bg-white text-black hover:bg-zinc-200' : 'bg-zinc-900 text-white hover:bg-zinc-800'}`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full py-3.5 rounded-xl bg-[var(--brand-strong)] text-white font-medium text-sm flex items-center justify-center gap-2 cursor-pointer hover:shadow-neon transition-shadow disabled:opacity-50"
             >
-              {isLoading ? 'Sending...' : 'Submit'}
-            </Button>
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="w-4 h-4" />
+                  Send Message
+                </>
+              )}
+            </motion.button>
           </form>
-        </div>
-        <Footer />
-      </Card>
+        </GlassCard>
+      </ScrollReveal>
+
+      <Footer />
     </div>
   );
 }
-

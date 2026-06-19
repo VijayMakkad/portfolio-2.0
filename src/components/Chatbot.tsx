@@ -1,192 +1,159 @@
-'use client'
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, X, Bot } from 'lucide-react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import React, { useState, useRef, useEffect } from "react";
+import { Send, X, MessageCircle, Sparkles } from "lucide-react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { motion, AnimatePresence } from "framer-motion";
 
-// Types
 interface ChatConfig {
   modelName: string;
-  modelConfig: any;
+  modelConfig: Record<string, unknown>;
   botName: string;
   initialPrompt: string;
 }
 
 interface Message {
-  role: 'user' | 'bot';
+  role: "user" | "bot";
   content: string;
 }
 
-// Styles for bounce animation
-const bounceStyles = `
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .bounce-effect {
-    animation: bounce 1s ease-in-out infinite;
-  }
-
-  .message-content h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 1rem 0;
-  }
-
-  .message-content h2 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 0.75rem 0;
-  }
-
-  .message-content ul {
-    margin: 0.5rem 0;
-    padding-left: 1.5rem;
-  }
-
-  .message-content li {
-    margin: 0.25rem 0;
-  }
-
-  .message-content p {
-    margin: 0.5rem 0;
-  }
-`;
+const quickPrompts = [
+  "What are Vijay's skills?",
+  "Tell me about his projects",
+  "Work experience?",
+  "How to contact him?",
+];
 
 const initialHistory: Message[] = [
   {
-    role: 'bot',
-    content: "Hello! I'm VM Bot, an AI assistant designed to provide information about Vijay Makkad. Ask me anything about his background, career, skills, hobbies, or interests!",
+    role: "bot",
+    content:
+      "Hey! I'm VM Bot 👋 — ask me anything about Vijay's background, skills, projects, or experience!",
   },
 ];
 
 const formatMessage = (text: string): string => {
-  let formattedText = text;
-
-  // Process headings
-  formattedText = formattedText.replace(/^# (.*$)/gm, '<h1>$1</h1>');
-  formattedText = formattedText.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-
-  // Process bold text
-  formattedText = formattedText.replace(/\*\*\*\*(.*?)\*\*\*\*/g, '<strong>$1</strong>');
-  formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
- formattedText = formattedText.replace(
-  /\b((https?:\/\/|www\.)[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?)/g,
-  (url) => {
-    let href = url;
-    if (!href.startsWith('http')) {
-      href = `https://${href}`;
+  let formatted = text;
+  formatted = formatted.replace(/^# (.*$)/gm, "<h3 class='font-bold text-base mt-3 mb-1'>$1</h3>");
+  formatted = formatted.replace(/^## (.*$)/gm, "<h4 class='font-semibold text-sm mt-2 mb-1'>$1</h4>");
+  formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  formatted = formatted.replace(
+    /\b((https?:\/\/|www\.)[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?)/g,
+    (url) => {
+      let href = url;
+      if (!href.startsWith("http")) href = `https://${href}`;
+      return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-[var(--brand-strong)] underline underline-offset-2">${url}</a>`;
     }
-    return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-blue-500 underline">${url}</a>`;
-  }
-);
+  );
 
-  // Process bullet points
-  const lines = formattedText.split('\n');
+  const lines = formatted.split("\n");
   let inList = false;
-  let processedLines: string[] = [];
-  let currentList: string[] = [];
+  const result: string[] = [];
+  let listItems: string[] = [];
 
   for (const line of lines) {
-    const trimmedLine = line.trim();
-    if (trimmedLine.startsWith('*')) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("*")) {
       if (!inList) {
         inList = true;
-        currentList = [];
+        listItems = [];
       }
-      currentList.push(`<li>${trimmedLine.substring(1).trim()}</li>`);
+      listItems.push(`<li class="ml-4 text-sm">${trimmed.substring(1).trim()}</li>`);
     } else {
       if (inList) {
-        processedLines.push(`<ul>${currentList.join('')}</ul>`);
-        currentList = [];
+        result.push(`<ul class="list-disc my-1">${listItems.join("")}</ul>`);
+        listItems = [];
         inList = false;
       }
-      if (trimmedLine) {
-        processedLines.push(`<p>${trimmedLine}</p>`);
-      }
+      if (trimmed) result.push(`<p class="text-sm leading-relaxed">${trimmed}</p>`);
     }
   }
+  if (inList) result.push(`<ul class="list-disc my-1">${listItems.join("")}</ul>`);
 
-  if (inList && currentList.length > 0) {
-    processedLines.push(`<ul>${currentList.join('')}</ul>`);
-  }
-
-  return processedLines.join('');
+  return result.join("");
 };
 
 const ChatBot: React.FC<{ config: ChatConfig }> = ({ config }) => {
   const [messages, setMessages] = useState<Message[]>(initialHistory);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showQuickPrompts, setShowQuickPrompts] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [chatSession, setChatSession] = useState<any>(null);
+  const [chatSession, setChatSession] = useState<ReturnType<Awaited<ReturnType<GoogleGenerativeAI["getGenerativeModel"]>>["startChat"]> | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const fabRef = useRef<HTMLButtonElement>(null);
+
+  const handleFabMove = (e: React.MouseEvent) => {
+    if (!fabRef.current) return;
+    const rect = fabRef.current.getBoundingClientRect();
+    const dx = e.clientX - (rect.left + rect.width / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
+    fabRef.current.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+  };
+
+  const handleFabLeave = () => {
+    if (fabRef.current) {
+      fabRef.current.style.transform = "translate(0px, 0px)";
+    }
+  };
 
   useEffect(() => {
     const initGemini = async () => {
       try {
-        const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || '');
+        const genAI = new GoogleGenerativeAI(
+          process.env.NEXT_PUBLIC_GEMINI_API_KEY || ""
+        );
         const model = genAI.getGenerativeModel({
           model: config.modelName,
-          generationConfig: {
-            ...config.modelConfig,
-          },
+          generationConfig: config.modelConfig as Parameters<typeof model.generateContent>[0] extends { generationConfig: infer C } ? C : never,
         });
         const session = model.startChat({
           history: [
-            {
-              role: 'user',
-              parts: [{ text: config.initialPrompt }],
-            },
-            {
-              role: 'model',
-              parts: [{ text: "I am now ready to function as VM Bot!" }],
-            },
+            { role: "user", parts: [{ text: config.initialPrompt }] },
+            { role: "model", parts: [{ text: "I am now ready to function as VM Bot!" }] },
           ],
         });
         setChatSession(session);
       } catch (error) {
-        console.error('Error initializing Gemini:', error);
+        console.error("Error initializing Gemini:", error);
       }
     };
     initGemini();
   }, [config]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || !chatSession) return;
+  useEffect(() => {
+    if (isChatOpen && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 300);
+    }
+  }, [isChatOpen]);
 
-    const userMessage = input.trim();
-    setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
-    setInput('');
+  const handleSubmit = async (text?: string) => {
+    const userMessage = (text || input).trim();
+    if (!userMessage || !chatSession) return;
+
+    setShowQuickPrompts(false);
+    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+    setInput("");
     setIsTyping(true);
 
     try {
       const result = await chatSession.sendMessage(userMessage);
       const response = await result.response;
-      const botMessage = response.text();
-      setMessages((prev) => [...prev, { role: 'bot', content: botMessage }]);
-    } catch (error) {
-      console.error('Error getting response:', error);
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", content: response.text() },
+      ]);
+    } catch {
       setMessages((prev) => [
         ...prev,
         {
-          role: 'bot',
-          content: "I apologize, but I'm having trouble responding right now. Please try again.",
+          role: "bot",
+          content: "Sorry, I'm having trouble responding. Please try again.",
         },
       ]);
     } finally {
@@ -194,83 +161,184 @@ const ChatBot: React.FC<{ config: ChatConfig }> = ({ config }) => {
     }
   };
 
-  const toggleChat = () => setIsChatOpen(!isChatOpen);
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSubmit();
+  };
 
   return (
     <>
-      {isChatOpen ? (
-        <Card className="fixed inset-0 sm:inset-auto sm:bottom-4 sm:right-4 flex flex-col shadow-lg rounded-none sm:rounded-3xl overflow-hidden sm:w-96 sm:h-[600px] md:w-[450px] lg:w-[350px] z-50">
-          <CardHeader className="bg-primary text-primary-foreground py-2 sm:py-4">
-            <CardTitle className="flex justify-between items-center text-lg sm:text-xl">
-              <span>{config.botName}</span>
-              <Button variant="ghost" size="icon" onClick={toggleChat} className="h-8 w-8 sm:h-10 sm:w-10">
-                <X className="h-5 w-5 sm:h-6 sm:w-6" />
-              </Button>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex-grow overflow-hidden p-0">
-            <ScrollArea className="h-[calc(100vh-120px)] sm:h-full p-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}
+      <AnimatePresence>
+        {isChatOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] max-h-[70vh] rounded-2xl glass-panel overflow-hidden flex flex-col shadow-2xl neon-glow ring-1 ring-[var(--brand-strong)]/30"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-subtle)]">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-[var(--brand-strong)] flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[var(--text-primary)]">
+                    {config.botName}
+                  </p>
+                  <p className="text-[10px] text-[var(--text-secondary)] font-mono">
+                    Powered by Gemini
+                  </p>
+                </div>
+              </div>
+              <motion.button
+                onClick={() => setIsChatOpen(false)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="p-1.5 rounded-lg hover:bg-[var(--surface-elevated)] transition-colors cursor-pointer"
+                aria-label="Close chat"
+              >
+                <X className="w-4 h-4 text-[var(--text-secondary)]" />
+              </motion.button>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[300px] max-h-[50vh]">
+              {messages.map((msg, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`inline-block max-w-[80%] p-3 rounded-lg ${
-                      message.role === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-secondary text-secondary-foreground'
+                    className={`max-w-[85%] px-3.5 py-2.5 rounded-2xl ${
+                      msg.role === "user"
+                        ? "bg-[var(--brand-strong)] text-white rounded-br-md"
+                        : "bg-[var(--surface-elevated)] text-[var(--text-primary)] rounded-bl-md"
                     }`}
                   >
-                    <div 
-                      className="message-content"
-                      dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: formatMessage(msg.content),
+                      }}
                     />
                   </div>
-                </div>
+                </motion.div>
               ))}
+
+              {/* Quick Prompts */}
+              {showQuickPrompts && messages.length <= 1 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex flex-wrap gap-2 pt-2"
+                >
+                  {quickPrompts.map((prompt) => (
+                    <motion.button
+                      key={prompt}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => handleSubmit(prompt)}
+                      className="px-3 py-1.5 text-xs rounded-full border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-[var(--brand-strong)] hover:text-[var(--brand-strong)] transition-colors cursor-pointer"
+                    >
+                      {prompt}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
+
+              {/* Typing Indicator */}
               {isTyping && (
-                <div className="text-left">
-                  <div className="inline-block bg-secondary text-secondary-foreground p-3 rounded-lg">
-                    Typing...
+                <div className="flex justify-start">
+                  <div className="bg-[var(--surface-elevated)] px-4 py-3 rounded-2xl rounded-bl-md flex items-center gap-1">
+                    {[0, 1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        className="w-1.5 h-1.5 rounded-full bg-[var(--brand-strong)]"
+                        animate={{ y: [0, -6, 0] }}
+                        transition={{
+                          duration: 0.6,
+                          repeat: Infinity,
+                          delay: i * 0.15,
+                        }}
+                      />
+                    ))}
                   </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
-            </ScrollArea>
-          </CardContent>
-          <CardFooter className="p-2 sm:p-4">
-            <form onSubmit={handleSubmit} className="flex w-full gap-2">
-              <Input
+            </div>
+
+            {/* Input */}
+            <form
+              onSubmit={handleFormSubmit}
+              className="p-3 border-t border-[var(--border-subtle)] flex gap-2"
+            >
+              <input
+                ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about Vijay..."
-                className="flex-grow h-12 text-sm sm:text-base"
                 disabled={!chatSession}
+                className="flex-1 bg-[var(--surface-elevated)] text-[var(--text-primary)] placeholder:text-[var(--text-secondary)] text-sm px-4 py-2.5 rounded-xl border border-[var(--border-subtle)] focus:border-[var(--brand-strong)] focus:outline-none focus:ring-1 focus:ring-[var(--brand-strong)] transition-all"
               />
-              <Button 
-                type="submit" 
-                disabled={!chatSession} 
-                size="icon" 
-                className="w-10 h-10 sm:w-12 sm:h-12"
+              <motion.button
+                type="submit"
+                disabled={!chatSession || !input.trim()}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-2.5 rounded-xl bg-[var(--brand-strong)] text-white disabled:opacity-30 cursor-pointer transition-opacity"
               >
-                <Send className="h-4 w-4 sm:h-6 sm:w-6" />
-              </Button>
+                <Send className="w-4 h-4" />
+              </motion.button>
             </form>
-          </CardFooter>
-        </Card>
-      ) : (
-        <Button
-          className="fixed bottom-4 m-10 right-4 shadow-lg z-50 w-16 h-16 rounded-2xl bg-primary hover:bg-primary/90 transition-all duration-300 ease-in-out flex flex-col-reverse bounce-effect"
-          size="icon"
-          onClick={toggleChat}
-        >
-          <span className="font-bold">BOT</span>
-          <Bot className="h-10 w-10 text-primary-foreground" />
-        </Button>
-      )}
-      <style jsx global>{bounceStyles}</style>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* FAB — magnetic pointer-follow + pulsing ring */}
+      <motion.button
+        ref={fabRef}
+        onClick={() => setIsChatOpen(!isChatOpen)}
+        onMouseMove={handleFabMove}
+        onMouseLeave={handleFabLeave}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl bg-[var(--brand-strong)] text-white flex items-center justify-center shadow-neon cursor-pointer will-change-transform"
+        whileTap={{ scale: 0.9 }}
+        style={{
+          transition: "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
+        aria-label="Toggle chat"
+      >
+        {/* Pulse ring */}
+        {!isChatOpen && (
+          <span className="absolute inset-0 rounded-2xl bg-[var(--brand-strong)] animate-pulse-ring" />
+        )}
+        <AnimatePresence mode="wait">
+          {isChatOpen ? (
+            <motion.div
+              key="close"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+            >
+              <X className="w-5 h-5" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="open"
+              initial={{ rotate: 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+            >
+              <MessageCircle className="w-5 h-5" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.button>
     </>
   );
 };
