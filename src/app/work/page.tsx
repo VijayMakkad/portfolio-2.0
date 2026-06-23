@@ -1,4 +1,4 @@
-import { Column, Heading, Meta, Schema, Text } from '@once-ui-system/core';
+import { Button, Column, Heading, Meta, Schema, Text } from '@once-ui-system/core';
 import { Projects } from '@/components/work/Projects';
 import { about, baseURL, person, work } from '@/resources';
 
@@ -51,6 +51,17 @@ export default function WorkPage() {
       </Column>
 
       <Projects layout="featured-first" />
+      <Column fillWidth horizontal="center" align="center" paddingY="64">
+        <Button 
+          href="https://github.com/VijayMakkad" 
+          variant="primary" 
+          size="l"
+          prefixIcon="github"
+          arrowIcon
+        >
+          Explore more projects on GitHub
+        </Button>
+      </Column>
     </Column>
   );
 }

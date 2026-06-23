@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion';
 
 const stats = [
   { label: 'LeetCode rating', value: 1700, suffix: '+', decimals: 0 },
-  { label: 'Projects shipped', value: 8, suffix: '', decimals: 0 },
+  { label: 'Projects shipped', value: 30, suffix: '+', decimals: 0 },
   { label: 'Years building', value: 3, suffix: '+', decimals: 0 },
 ];
 
