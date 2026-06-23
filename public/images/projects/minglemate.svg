@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="mm-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0f14"/>
+      <stop offset="100%" stop-color="#0d1520"/>
+    </linearGradient>
+    <linearGradient id="mm-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#mm-bg)"/>
+  <circle cx="750" cy="180" r="220" fill="#0891b2" opacity="0.07"/>
+
+  <!-- chat card -->
+  <rect x="510" y="60" width="400" height="420" rx="18" fill="#0f1623" stroke="#1e3a4a" stroke-width="1.5"/>
+
+  <!-- header -->
+  <rect x="510" y="60" width="400" height="56" rx="18" fill="#0e2233"/>
+  <rect x="510" y="96" width="400" height="20" fill="#0e2233"/>
+  <circle cx="544" cy="88" r="16" fill="#0891b2" opacity="0.7"/>
+  <text x="544" y="92" text-anchor="middle" fill="#fff" font-family="system-ui" font-size="12" font-weight="600">M</text>
+  <text x="572" y="84" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="14" font-weight="600">MingleMate</text>
+  <circle cx="578" cy="98" r="4" fill="#4ade80"/>
+  <text x="590" y="102" fill="#4ade80" font-family="monospace" font-size="11">3 online</text>
+  <circle cx="876" cy="88" r="8" fill="#22c55e" opacity="0.9"/>
+
+  <!-- incoming 1 -->
+  <circle cx="538" cy="155" r="14" fill="#7c3aed" opacity="0.8"/>
+  <text x="538" y="159" text-anchor="middle" fill="#ddd6fe" font-family="system-ui" font-size="10" font-weight="600">A</text>
+  <rect x="562" y="137" width="210" height="36" rx="12" fill="#1a2535" stroke="#1e3a5f" stroke-width="1"/>
+  <text x="667" y="159" text-anchor="middle" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="13">Hey! Project looks great</text>
+
+  <!-- outgoing 1 -->
+  <rect x="608" y="192" width="210" height="36" rx="12" fill="#0e4f66" stroke="#0891b2" stroke-width="1"/>
+  <text x="713" y="214" text-anchor="middle" fill="#e0f7ff" font-family="system-ui, sans-serif" font-size="13">Thanks! 100+ users live</text>
+
+  <!-- incoming 2 -->
+  <circle cx="538" cy="252" r="14" fill="#059669" opacity="0.8"/>
+  <text x="538" y="256" text-anchor="middle" fill="#a7f3d0" font-family="system-ui" font-size="10" font-weight="600">B</text>
+  <rect x="562" y="234" width="170" height="36" rx="12" fill="#1a2535" stroke="#1e3a5f" stroke-width="1"/>
+  <text x="647" y="256" text-anchor="middle" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="13">That is amazing!</text>
+
+  <!-- outgoing 2 -->
+  <rect x="620" y="290" width="198" height="36" rx="12" fill="#0e4f66" stroke="#0891b2" stroke-width="1"/>
+  <text x="719" y="312" text-anchor="middle" fill="#e0f7ff" font-family="system-ui, sans-serif" font-size="13">Shipped with WebSockets</text>
+
+  <!-- incoming 3 -->
+  <circle cx="538" cy="350" r="14" fill="#0891b2" opacity="0.7"/>
+  <text x="538" y="354" text-anchor="middle" fill="#cffafe" font-family="system-ui" font-size="10" font-weight="600">C</text>
+  <rect x="562" y="332" width="160" height="36" rx="12" fill="#1a2535" stroke="#1e3a5f" stroke-width="1"/>
+  <text x="642" y="354" text-anchor="middle" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="13">How is the latency?</text>
+
+  <!-- input bar -->
+  <rect x="524" y="434" width="372" height="36" rx="18" fill="#1a2535" stroke="#1e3a5f" stroke-width="1"/>
+  <text x="610" y="455" fill="#475569" font-family="system-ui, sans-serif" font-size="13">Type a message...</text>
+  <circle cx="876" cy="452" r="14" fill="#0891b2" opacity="0.85"/>
+  <path d="M 870 446 L 882 452 L 870 458 Z" fill="#fff"/>
+
+  <!-- left side -->
+  <text x="60" y="165" fill="#22d3ee" font-family="monospace" font-size="13" opacity="0.65">// real-time messaging</text>
+  <text x="60" y="228" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="58" font-weight="700">MingleMate</text>
+  <rect x="60" y="246" width="170" height="3" rx="2" fill="url(#mm-accent)"/>
+  <text x="60" y="290" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="17">Real-time chat for 100+ concurrent users</text>
+
+  <!-- stats -->
+  <text x="60" y="352" fill="#22d3ee" font-family="system-ui, sans-serif" font-size="32" font-weight="700">100+</text>
+  <text x="60" y="370" fill="#64748b" font-family="monospace" font-size="10">CONCURRENT USERS</text>
+  <text x="190" y="352" fill="#22d3ee" font-family="system-ui, sans-serif" font-size="32" font-weight="700">JWT</text>
+  <text x="190" y="370" fill="#64748b" font-family="monospace" font-size="10">AUTH</text>
+  <text x="265" y="352" fill="#22d3ee" font-family="system-ui, sans-serif" font-size="32" font-weight="700">WS</text>
+  <text x="265" y="370" fill="#64748b" font-family="monospace" font-size="10">SOCKETS</text>
+
+  <!-- badges -->
+  <rect x="60" y="420" width="80" height="28" rx="14" fill="#1c1917" stroke="#f97316" stroke-width="1"/>
+  <text x="100" y="438" text-anchor="middle" fill="#fb923c" font-family="monospace" font-size="12" font-weight="600">React.js</text>
+  <rect x="152" y="420" width="82" height="28" rx="14" fill="#052e16" stroke="#22c55e" stroke-width="1"/>
+  <text x="193" y="438" text-anchor="middle" fill="#86efac" font-family="monospace" font-size="12" font-weight="600">Node.js</text>
+  <rect x="246" y="420" width="84" height="28" rx="14" fill="#052e16" stroke="#16a34a" stroke-width="1"/>
+  <text x="288" y="438" text-anchor="middle" fill="#86efac" font-family="monospace" font-size="12" font-weight="600">MongoDB</text>
+</svg>

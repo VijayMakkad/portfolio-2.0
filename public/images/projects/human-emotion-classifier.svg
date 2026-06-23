@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="hec-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0f14"/>
+      <stop offset="100%" stop-color="#140a1e"/>
+    </linearGradient>
+    <linearGradient id="hec-bar1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="hec-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#hec-bg)"/>
+
+  <!-- Purple glow circle top-right -->
+  <circle cx="720" cy="150" r="200" fill="#a855f7" opacity="0.08"/>
+  <circle cx="720" cy="150" r="120" fill="#a855f7" opacity="0.06"/>
+
+  <!-- Right side: Face scan card -->
+  <rect x="520" y="80" width="380" height="380" rx="20" fill="#111827" stroke="#2d1b4e" stroke-width="1.5"/>
+
+  <!-- Face bounding box (scan effect) -->
+  <!-- Top-left corner -->
+  <polyline points="570,140 570,120 595,120" fill="none" stroke="#a855f7" stroke-width="2.5"/>
+  <!-- Top-right corner -->
+  <polyline points="850,120 875,120 875,140" fill="none" stroke="#a855f7" stroke-width="2.5"/>
+  <!-- Bottom-left corner -->
+  <polyline points="570,380 570,400 595,400" fill="none" stroke="#a855f7" stroke-width="2.5"/>
+  <!-- Bottom-right corner -->
+  <polyline points="875,380 875,400 850,400" fill="none" stroke="#a855f7" stroke-width="2.5"/>
+
+  <!-- Simple face outline (oval) -->
+  <ellipse cx="722" cy="240" rx="100" ry="115" fill="none" stroke="#7e22ce" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.6"/>
+
+  <!-- Eyes -->
+  <circle cx="690" cy="205" r="14" fill="none" stroke="#c084fc" stroke-width="1.5"/>
+  <circle cx="690" cy="205" r="6" fill="#a855f7" opacity="0.9"/>
+  <circle cx="754" cy="205" r="14" fill="none" stroke="#c084fc" stroke-width="1.5"/>
+  <circle cx="754" cy="205" r="6" fill="#a855f7" opacity="0.9"/>
+
+  <!-- Smile arc -->
+  <path d="M 685 268 Q 722 295 759 268" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Scan line -->
+  <line x1="575" y1="240" x2="870" y2="240" stroke="#a855f7" stroke-width="0.8" opacity="0.3"/>
+
+  <!-- Prediction label -->
+  <rect x="642" y="388" width="160" height="32" rx="8" fill="#2d1b4e" stroke="#a855f7" stroke-width="1"/>
+  <text x="722" y="408" text-anchor="middle" fill="#d8b4fe" font-family="monospace" font-size="13" font-weight="600">Happy - 81%</text>
+
+  <!-- Emotion confidence bars -->
+  <rect x="550" y="442" width="345" height="7" rx="3" fill="#1a1030"/>
+  <rect x="550" y="442" width="280" height="7" rx="3" fill="#a855f7" opacity="0.85"/>
+  <text x="560" y="438" fill="#94a3b8" font-family="monospace" font-size="10">CONFIDENCE</text>
+
+  <!-- Left side: main text -->
+  <text x="60" y="165" fill="#c084fc" font-family="monospace" font-size="13" opacity="0.65">// emotion recognition</text>
+
+  <text x="60" y="230" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="52" font-weight="700">Human Emotion</text>
+  <text x="60" y="288" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="52" font-weight="700">Classifier</text>
+
+  <rect x="60" y="306" width="172" height="3" rx="2" fill="url(#hec-accent)"/>
+
+  <text x="60" y="348" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="17">CNN on FER2013 - 7 emotion classes</text>
+
+  <!-- Stats row -->
+  <text x="60" y="405" fill="#c084fc" font-family="system-ui, sans-serif" font-size="30" font-weight="700">7</text>
+  <text x="60" y="422" fill="#64748b" font-family="monospace" font-size="10">CLASSES</text>
+  <text x="130" y="405" fill="#c084fc" font-family="system-ui, sans-serif" font-size="30" font-weight="700">96%</text>
+  <text x="130" y="422" fill="#64748b" font-family="monospace" font-size="10">ACCURACY</text>
+  <text x="220" y="405" fill="#c084fc" font-family="system-ui, sans-serif" font-size="30" font-weight="700">CNN</text>
+  <text x="220" y="422" fill="#64748b" font-family="monospace" font-size="10">ARCHITECTURE</text>
+
+  <!-- Tech badges -->
+  <rect x="60" y="448" width="100" height="28" rx="14" fill="#2d1b69" stroke="#a855f7" stroke-width="1"/>
+  <text x="110" y="466" text-anchor="middle" fill="#d8b4fe" font-family="monospace" font-size="12" font-weight="600">TensorFlow</text>
+
+  <rect x="172" y="448" width="80" height="28" rx="14" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+  <text x="212" y="466" text-anchor="middle" fill="#93c5fd" font-family="monospace" font-size="12" font-weight="600">OpenCV</text>
+
+  <rect x="264" y="448" width="68" height="28" rx="14" fill="#1c1917" stroke="#f97316" stroke-width="1"/>
+  <text x="298" y="466" text-anchor="middle" fill="#fb923c" font-family="monospace" font-size="12" font-weight="600">Keras</text>
+</svg>

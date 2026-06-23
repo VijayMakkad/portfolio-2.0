@@ -1,0 +1,33 @@
+---
+title: "Deep Researcher RAG System"
+publishedAt: "2025-01-15"
+summary: "Multi-agent research pipeline with FAISS vector store, Streamlit UI, and FastAPI backend. Generates comprehensive research reports from a single query using RAG architecture."
+images:
+  - "/images/projects/deep-researcher-rag-system.svg"
+image: "/images/projects/deep-researcher-rag-system.svg"
+tag: "Python"
+team:
+  - name: "Vijay Makkad"
+    description: "Full-Stack & ML Engineer"
+    role: "Developer"
+    avatar: "/profile.mp4"
+    linkedIn: "https://www.linkedin.com/in/vijay-makkad-1573681b3/"
+link: "https://github.com/VijayMakkad/Deep-Researcher-RAG-System"
+---
+
+## Overview
+
+Deep Researcher is a multi-agent research pipeline that turns a single natural-language query into a comprehensive, cited research report. Instead of relying on one LLM call, the system orchestrates specialized agents for web retrieval, document chunking, vector search, and final synthesis—producing answers grounded in retrieved evidence rather than model hallucination.
+
+The project demonstrates how RAG (Retrieval-Augmented Generation) can scale beyond simple Q&A into a full research workflow. Users submit a topic through a Streamlit interface and receive structured output with sources, making it useful for literature reviews, competitive analysis, and technical deep dives.
+
+## Tech Stack
+
+The backend is built in **Python** with **LangChain** for agent orchestration and prompt chaining. Retrieved documents are embedded and indexed in a **FAISS** vector store for fast similarity search. Recursive web search agents gather fresh content from the open web, while an LLM synthesis layer combines findings into a coherent narrative. The frontend is a **Streamlit** app that keeps the interaction simple while the multi-agent pipeline runs behind the scenes.
+
+## Highlights
+
+- Designed a multi-agent architecture where retrieval, ranking, and synthesis are handled by separate specialized steps.
+- Integrated FAISS for efficient vector similarity search over large document collections.
+- Implemented recursive web search to expand coverage beyond a single query result page.
+- Built a Streamlit UI that accepts a research question and returns a formatted report with source references.
