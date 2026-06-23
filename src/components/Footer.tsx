@@ -28,7 +28,7 @@ export const Footer = () => {
             <Text paddingX="4">{person.name}</Text>
           </Text>
           <Text variant="body-default-s" onBackground="neutral-strong">
-            Full-stack & ML engineer · Bangalore, India
+            Software engineer · Bangalore, India
           </Text>
         </Row>
         <Row gap="16">
