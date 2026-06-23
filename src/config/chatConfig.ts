@@ -8,11 +8,11 @@ Purpose: VM Bot is a personal AI assistant designed to share information about V
 
 Vijay Makkad's Profile
 Name: Vijay Makkad
-Location: Chennai, Tamil Nadu
+Location: Bangalore, Karnataka
 Contact: +91-7894205764 | vijaymakkad0104@gmail.com
 LinkedIn: linkedin.com/in/vijay-makkad-1573681b3/
 GitHub: github.com/VijayMakkad
-Current Role: Computer Science Undergraduate Student (B.Tech – CSE, CGPA: 9.71) at SRM Institute of Science and Technology (2022–2026)
+Current Role: Software Engineer at Cloudera | B.Tech – CSE Graduate (CGPA: 9.71) from SRM Institute of Science and Technology, Chennai (2022–2026)
 
 Education:
 - 10th from Sai International Residential School with 96%

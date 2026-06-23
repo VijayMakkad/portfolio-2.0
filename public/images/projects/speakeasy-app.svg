@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="se-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0f14"/>
+      <stop offset="100%" stop-color="#0a1428"/>
+    </linearGradient>
+    <linearGradient id="se-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="se-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#se-bg)"/>
+  <circle cx="730" cy="160" r="210" fill="#f59e0b" opacity="0.07"/>
+
+  <!-- Right side: waveform card -->
+  <rect x="510" y="80" width="400" height="300" rx="18" fill="#0f1623" stroke="#292524" stroke-width="1.5"/>
+
+  <!-- Recording header -->
+  <rect x="510" y="80" width="400" height="52" rx="18" fill="#1a150a"/>
+  <rect x="510" y="112" width="400" height="20" fill="#1a150a"/>
+  <circle cx="538" cy="106" r="8" fill="#ef4444" opacity="0.9"/>
+  <text x="556" y="110" fill="#fca5a5" font-family="monospace" font-size="12" font-weight="600">? RECORDING</text>
+  <text x="870" y="110" text-anchor="end" fill="#78716c" font-family="monospace" font-size="12">02:34</text>
+
+  <!-- Waveform bars (vertical, different heights) -->
+  <rect x="530" y="175" width="12" height="52" rx="6" fill="url(#se-bar)" opacity="0.9"/>
+  <rect x="550" y="155" width="12" height="92" rx="6" fill="url(#se-bar)" opacity="0.85"/>
+  <rect x="570" y="185" width="12" height="32" rx="6" fill="url(#se-bar)" opacity="0.7"/>
+  <rect x="590" y="148" width="12" height="106" rx="6" fill="url(#se-bar)" opacity="0.9"/>
+  <rect x="610" y="168" width="12" height="66" rx="6" fill="url(#se-bar)" opacity="0.8"/>
+  <rect x="630" y="158" width="12" height="86" rx="6" fill="url(#se-bar)" opacity="0.85"/>
+  <rect x="650" y="180" width="12" height="42" rx="6" fill="url(#se-bar)" opacity="0.7"/>
+  <rect x="670" y="145" width="12" height="112" rx="6" fill="url(#se-bar)" opacity="0.95"/>
+  <rect x="690" y="162" width="12" height="78" rx="6" fill="url(#se-bar)" opacity="0.8"/>
+  <rect x="710" y="170" width="12" height="62" rx="6" fill="url(#se-bar)" opacity="0.75"/>
+  <rect x="730" y="152" width="12" height="98" rx="6" fill="url(#se-bar)" opacity="0.88"/>
+  <rect x="750" y="175" width="12" height="52" rx="6" fill="url(#se-bar)" opacity="0.7"/>
+  <rect x="770" y="160" width="12" height="82" rx="6" fill="url(#se-bar)" opacity="0.82"/>
+  <rect x="790" y="178" width="12" height="46" rx="6" fill="url(#se-bar)" opacity="0.68"/>
+  <rect x="810" y="149" width="12" height="104" rx="6" fill="url(#se-bar)" opacity="0.9"/>
+  <rect x="830" y="168" width="12" height="66" rx="6" fill="url(#se-bar)" opacity="0.78"/>
+  <rect x="850" y="165" width="12" height="72" rx="6" fill="url(#se-bar)" opacity="0.82"/>
+  <rect x="870" y="172" width="12" height="58" rx="6" fill="url(#se-bar)" opacity="0.72"/>
+
+  <!-- Transcript output -->
+  <rect x="524" y="268" width="372" height="90" rx="12" fill="#111827" stroke="#292524" stroke-width="1"/>
+  <text x="544" y="290" fill="#64748b" font-family="monospace" font-size="10">LIVE TRANSCRIPT</text>
+  <text x="544" y="314" fill="#fde68a" font-family="system-ui, sans-serif" font-size="14">"The deployment went live today</text>
+  <text x="544" y="334" fill="#fde68a" font-family="system-ui, sans-serif" font-size="14">with over 100 users connected..."</text>
+  <circle cx="880" cy="288" r="6" fill="#22c55e"/>
+  <text x="866" y="290" text-anchor="end" fill="#4ade80" font-family="monospace" font-size="10">EN - 98%</text>
+
+  <!-- Language detect pill -->
+  <rect x="524" y="370" width="372" height="36" rx="18" fill="#1a2535" stroke="#292524" stroke-width="1"/>
+  <text x="700" y="392" text-anchor="middle" fill="#64748b" font-family="system-ui, sans-serif" font-size="13">Detected: English  -  Confidence: 98%</text>
+
+  <!-- Left side -->
+  <text x="60" y="165" fill="#fbbf24" font-family="monospace" font-size="13" opacity="0.65">// voice transcription</text>
+
+  <text x="60" y="228" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="58" font-weight="700">SpeakEasy</text>
+
+  <rect x="60" y="246" width="156" height="3" rx="2" fill="url(#se-accent)"/>
+
+  <text x="60" y="290" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="17">Real-time voice transcription app</text>
+
+  <!-- Stats -->
+  <text x="60" y="352" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="30" font-weight="700">98%</text>
+  <text x="60" y="370" fill="#64748b" font-family="monospace" font-size="10">ACCURACY</text>
+  <text x="150" y="352" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="30" font-weight="700">RT</text>
+  <text x="150" y="370" fill="#64748b" font-family="monospace" font-size="10">REAL-TIME</text>
+  <text x="215" y="352" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="30" font-weight="700">10+</text>
+  <text x="215" y="370" fill="#64748b" font-family="monospace" font-size="10">LANGUAGES</text>
+
+  <!-- Tech badges -->
+  <rect x="60" y="420" width="80" height="28" rx="14" fill="#1a1a2e" stroke="#6366f1" stroke-width="1"/>
+  <text x="100" y="438" text-anchor="middle" fill="#a5b4fc" font-family="monospace" font-size="12" font-weight="600">React.js</text>
+
+  <rect x="152" y="420" width="122" height="28" rx="14" fill="#1c1917" stroke="#f59e0b" stroke-width="1"/>
+  <text x="213" y="438" text-anchor="middle" fill="#fde68a" font-family="monospace" font-size="12" font-weight="600">Web Speech API</text>
+
+  <rect x="286" y="420" width="80" height="28" rx="14" fill="#052e16" stroke="#22c55e" stroke-width="1"/>
+  <text x="326" y="438" text-anchor="middle" fill="#86efac" font-family="monospace" font-size="12" font-weight="600">Node.js</text>
+</svg>

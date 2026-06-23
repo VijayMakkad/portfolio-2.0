@@ -1,0 +1,33 @@
+---
+title: "AI Text Summarization"
+publishedAt: "2024-02-01"
+summary: "Abstractive text summarizer using fine-tuned BART model with FastAPI backend, GPU-optimized inference achieving sub-3s response time."
+images:
+  - "/images/projects/ai-text-summarization.svg"
+image: "/images/projects/ai-text-summarization.svg"
+tag: "FastAPI"
+team:
+  - name: "Vijay Makkad"
+    description: "Full-Stack & ML Engineer"
+    role: "Developer"
+    avatar: "/profile.mp4"
+    linkedIn: "https://www.linkedin.com/in/vijay-makkad-1573681b3/"
+link: "https://github.com/VijayMakkad/text-summarization-app"
+---
+
+## Overview
+
+AI Text Summarization is an abstractive summarization tool that condenses long articles, documents, and passages into concise summaries while preserving key meaning. Unlike extractive methods that copy sentences verbatim, the fine-tuned BART model generates new prose that captures the essence of the input text.
+
+The system is optimized for speed, delivering summaries in under three seconds even on longer inputs—making it practical for everyday reading workflows and content triage.
+
+## Tech Stack
+
+The core model is a fine-tuned **BART** transformer loaded via **HuggingFace** Transformers, with GPU-accelerated inference for fast token generation. A **FastAPI** backend exposes a REST endpoint for text submission and summary retrieval, with async request handling for concurrent users. The **React.js** frontend provides a clean textarea interface with copy-to-clipboard and loading states.
+
+## Highlights
+
+- Fine-tuned BART for abstractive summarization that produces fluent, coherent output.
+- Achieved sub-3-second response times through GPU-optimized inference and batching.
+- Built a FastAPI service with async endpoints and structured error handling.
+- Delivered a React frontend for paste-and-summarize workflows with instant feedback.

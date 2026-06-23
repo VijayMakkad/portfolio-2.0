@@ -3,123 +3,203 @@
 @tailwind utilities;
 
 @layer base {
+  /* Prevent the browser from auto-adjusting scrollTop when on-page content
+     grows/shrinks (e.g. hover-reveal cards, tab filtering). Without this,
+     scroll anchoring fights the hover expansion and causes a jitter loop. */
+  html {
+    overflow-anchor: none;
+  }
+
   :root {
-    /* Light mode — strict monochrome (white / black / gray) */
     --background: 0 0% 100%;
     --foreground: 0 0% 4%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 4%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 4%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 0% 0%;
-    --destructive-foreground: 0 0% 100%;
     --border: 0 0% 88%;
-    --input: 0 0% 88%;
-    --ring: 0 0% 0%;
     --radius: 0.75rem;
 
-    /* Brand tokens — monochrome (customizer overrides these at runtime) */
-    --brand-strong: #000000;
-    --brand-medium: #333333;
-    --brand-weak: #e5e5e5;
-    --brand-glow: rgba(0, 0, 0, 0.12);
-    --brand-glow-strong: rgba(0, 0, 0, 0.2);
-    --surface-glass: rgba(255, 255, 255, 0.7);
-    --surface-card: #ffffff;
-    --surface-elevated: #f5f5f5;
-    --text-primary: #0a0a0a;
-    --text-secondary: #555555;
-    --border-subtle: #e5e5e5;
-  }
+    /* 21st.dev gradient text tokens — bound to once-ui brand scheme so the
+       gradient text follows whichever brand colour is selected in the theme */
+    --color-1: var(--brand-on-background-medium, #06b6d4);
+    --color-2: var(--brand-on-background-strong, #22d3ee);
+    --color-3: var(--brand-on-background-weak, #0891b2);
+    --color-4: var(--brand-on-background-medium, #67e8f9);
 
-  .dark {
-    --background: 240 17% 4%;
-    --foreground: 210 40% 98%;
-    --card: 240 14% 7%;
-    --card-foreground: 210 40% 98%;
-    --popover: 240 14% 7%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 0 72% 51%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 4% 16%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 240 4% 16%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 240 4% 16%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 0 72% 51%;
-
-    /* Brand tokens — dark */
-    --brand-strong: #ef4444;
-    --brand-medium: #f87171;
-    --brand-weak: #7f1d1d;
-    --brand-glow: rgba(239, 68, 68, 0.3);
-    --brand-glow-strong: rgba(239, 68, 68, 0.5);
-    --surface-glass: rgba(10, 10, 16, 0.7);
-    --surface-card: #12131a;
-    --surface-elevated: #1a1b26;
+    /* Chatbot + hybrid Tailwind tokens (cyan brand) */
+    --brand-strong: #06b6d4;
+    --brand-medium: #22d3ee;
+    --brand-weak: #164e63;
+    --brand-glow: rgba(6, 182, 212, 0.3);
+    --brand-glow-strong: rgba(6, 182, 212, 0.5);
+    --surface-glass: rgba(10, 15, 20, 0.85);
+    --surface-card: #0f1419;
+    --surface-elevated: #151b22;
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
-    --border-subtle: #2a2a35;
+    --border-subtle: #1e293b;
+
+    /* Theme-reactive solid brand tokens — bound to once-ui scheme tokens so
+       they follow both the light/dark theme AND the chosen brand colour.
+       --brand-on-background-medium is the vibrant accent; page-background
+       provides an automatically-contrasting fill for the icon/text on top. */
+    --brand-solid: var(--brand-on-background-medium, #06b6d4);
+    --brand-on-solid: var(--page-background, #0a0f14);
+  }
+
+  /* Ensure Once UI nav/footer icons stay visible in dark theme */
+  [data-theme='dark'] [class*='Icon_'] svg,
+  [data-theme='dark'] [class*='ToggleButton'] svg,
+  [data-theme='dark'] [class*='IconButton'] svg {
+    color: var(--neutral-on-background-strong);
+  }
+
+  /* Black / Mono brand mode — remaps the brand accent tokens to the neutral
+     (grayscale) scale so all accents become black (light theme) / white
+     (dark theme) instead of a colour. Works alongside any selected brand. */
+  [data-mono='true'] {
+    --brand-on-background-strong: var(--neutral-on-background-strong);
+    --brand-on-background-medium: var(--neutral-on-background-strong);
+    --brand-on-background-weak: var(--neutral-on-background-weak);
+    --brand-alpha-strong: var(--neutral-alpha-strong);
+    --brand-alpha-medium: var(--neutral-alpha-medium);
+    --brand-alpha-weak: var(--neutral-alpha-weak);
+    --brand-border-strong: var(--neutral-border-strong);
+    --brand-border-medium: var(--neutral-border-medium);
+    --brand-background-strong: var(--neutral-background-strong);
+    --brand-background-medium: var(--neutral-background-medium);
+    --brand-glow: var(--neutral-alpha-medium);
+    --brand-glow-strong: var(--neutral-alpha-strong);
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-geist), system-ui, -apple-system, sans-serif;
-  }
-}
-
-/* ===== Glass utilities ===== */
 @layer components {
   .glass-panel {
-    background: var(--surface-glass);
+    background: var(--page-background, var(--surface-glass));
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-subtle);
-    transition: border-color 300ms ease, box-shadow 300ms ease;
-  }
-  .glass-panel:hover {
-    border-color: var(--brand-strong);
+    border: 1px solid var(--neutral-border-medium, var(--border-subtle));
   }
 
   .neon-glow {
     box-shadow: 0 0 15px var(--brand-glow);
   }
-  .neon-glow-strong {
-    box-shadow: 0 0 30px var(--brand-glow-strong), 0 0 60px var(--brand-glow);
-  }
 
-  .grid-bg {
-    background-image: radial-gradient(circle, var(--brand-glow) 1px, transparent 1px);
-    background-size: 32px 32px;
-    mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 40%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 40%, transparent 100%);
+  /* Theme-aware helpers — adapt to once-ui light/dark tokens */
+  .c-text-strong {
+    color: var(--neutral-on-background-strong);
+  }
+  .c-text-medium {
+    color: var(--neutral-on-background-medium);
+  }
+  .c-text-weak {
+    color: var(--neutral-on-background-weak);
+  }
+  .c-text-brand {
+    color: var(--brand-on-background-medium);
+  }
+  .c-surface {
+    background-color: var(--neutral-alpha-weak);
+  }
+  .c-surface-hover:hover {
+    background-color: var(--neutral-alpha-medium);
+  }
+  .c-border {
+    border-color: var(--neutral-border-medium);
+  }
+  .c-surface-line {
+    background-color: var(--neutral-on-background-weak);
+  }
+  .c-border-hover:hover {
+    border-color: var(--brand-border-medium);
   }
 }
 
-/* ===== GPU acceleration ===== */
-.will-change-transform {
-  will-change: transform;
+@layer utilities {
+  .animate-gradient {
+    animation: gradient 4s ease infinite;
+  }
+
+  .mask-marquee {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+
+  .animate-marquee-vertical {
+    animation: marquee-vertical linear infinite;
+  }
+
+  .animate-marquee-vertical-reverse {
+    animation: marquee-vertical-reverse linear infinite;
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .shadow-neon {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
-/* ===== Prefers reduced motion (ui-ux-pro-max enforced) ===== */
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes marquee-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-vertical-reverse {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -131,23 +211,3 @@
   }
 }
 
-/* ===== Scrollbar ===== */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border-subtle);
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--brand-medium);
-}
-
-/* ===== Selection ===== */
-::selection {
-  background: var(--brand-strong);
-  color: white;
-}

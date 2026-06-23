@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="var-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0f14"/>
+      <stop offset="100%" stop-color="#0f1414"/>
+    </linearGradient>
+    <linearGradient id="var-accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="var-bar1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#fca5a5"/>
+    </linearGradient>
+    <linearGradient id="var-bar2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#var-bg)"/>
+  <circle cx="730" cy="160" r="200" fill="#ef4444" opacity="0.07"/>
+
+  <!-- Right side: video frame with skeleton overlay -->
+  <rect x="510" y="70" width="400" height="400" rx="16" fill="#0f1623" stroke="#2d1a1a" stroke-width="1.5"/>
+
+  <!-- Video frame header -->
+  <rect x="510" y="70" width="400" height="44" rx="16" fill="#1a0a0a"/>
+  <rect x="510" y="96" width="400" height="18" fill="#1a0a0a"/>
+  <circle cx="534" cy="92" r="6" fill="#ef4444"/>
+  <text x="550" y="96" fill="#fca5a5" font-family="monospace" font-size="12" font-weight="600">? LIVE INFERENCE</text>
+  <text x="882" y="96" text-anchor="end" fill="#6b7280" font-family="monospace" font-size="12">30 fps</text>
+
+  <!-- Bounding box corners -->
+  <polyline points="560,134 560,120 580,120" fill="none" stroke="#ef4444" stroke-width="2.5" opacity="0.8"/>
+  <polyline points="870,120 890,120 890,134" fill="none" stroke="#ef4444" stroke-width="2.5" opacity="0.8"/>
+  <polyline points="560,410 560,424 580,424" fill="none" stroke="#ef4444" stroke-width="2.5" opacity="0.8"/>
+  <polyline points="890,410 890,424 870,424" fill="none" stroke="#ef4444" stroke-width="2.5" opacity="0.8"/>
+
+  <!-- Skeleton stick figure (absolute coordinates, simple) -->
+  <!-- Head -->
+  <circle cx="725" cy="165" r="22" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+  <circle cx="725" cy="165" r="8" fill="#ef4444" opacity="0.4"/>
+  <!-- Spine -->
+  <line x1="725" y1="187" x2="725" y2="270" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Left arm (raised) -->
+  <line x1="725" y1="218" x2="668" y2="188" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="668" y1="188" x2="642" y2="216" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Right arm (raised high) -->
+  <line x1="725" y1="218" x2="790" y2="172" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="790" y1="172" x2="820" y2="148" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Left leg -->
+  <line x1="725" y1="270" x2="698" y2="340" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="698" y1="340" x2="704" y2="395" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Right leg -->
+  <line x1="725" y1="270" x2="750" y2="340" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="750" y1="340" x2="744" y2="395" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Joint dots -->
+  <circle cx="668" cy="188" r="5" fill="#fca5a5"/>
+  <circle cx="642" cy="216" r="5" fill="#fca5a5"/>
+  <circle cx="790" cy="172" r="5" fill="#fca5a5"/>
+  <circle cx="820" cy="148" r="5" fill="#fca5a5"/>
+  <circle cx="698" cy="340" r="5" fill="#fca5a5"/>
+  <circle cx="750" cy="340" r="5" fill="#fca5a5"/>
+
+  <!-- Action label -->
+  <rect x="650" y="410" width="150" height="30" rx="8" fill="#2d1a1a" stroke="#ef4444" stroke-width="1"/>
+  <text x="725" y="430" text-anchor="middle" fill="#fca5a5" font-family="monospace" font-size="13" font-weight="600">waving - 97%</text>
+
+  <!-- Left side -->
+  <text x="60" y="165" fill="#fca5a5" font-family="monospace" font-size="13" opacity="0.65">// action recognition</text>
+
+  <text x="60" y="228" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="46" font-weight="700">Video Action</text>
+  <text x="60" y="282" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="46" font-weight="700">Recognition</text>
+
+  <rect x="60" y="300" width="162" height="3" rx="2" fill="url(#var-accent)"/>
+
+  <text x="60" y="344" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="17">MovieNet CNN - 97% training accuracy</text>
+
+  <!-- Confidence bars -->
+  <text x="60" y="388" fill="#64748b" font-family="monospace" font-size="10">TOP PREDICTIONS</text>
+  <text x="60" y="410" fill="#fca5a5" font-family="monospace" font-size="12">waving</text>
+  <rect x="120" y="400" width="200" height="10" rx="5" fill="#1a0a0a"/>
+  <rect x="120" y="400" width="194" height="10" rx="5" fill="url(#var-bar1)" opacity="0.85"/>
+  <text x="328" y="410" fill="#ef4444" font-family="monospace" font-size="11">97%</text>
+
+  <text x="60" y="432" fill="#fde68a" font-family="monospace" font-size="12">running</text>
+  <rect x="120" y="422" width="200" height="10" rx="5" fill="#1a0a0a"/>
+  <rect x="120" y="422" width="40" height="10" rx="5" fill="url(#var-bar2)" opacity="0.85"/>
+  <text x="328" y="432" fill="#fbbf24" font-family="monospace" font-size="11">20%</text>
+
+  <!-- Tech badges -->
+  <rect x="60" y="462" width="82" height="28" rx="14" fill="#2d1b69" stroke="#a855f7" stroke-width="1"/>
+  <text x="101" y="480" text-anchor="middle" fill="#d8b4fe" font-family="monospace" font-size="12" font-weight="600">PyTorch</text>
+
+  <rect x="154" y="462" width="82" height="28" rx="14" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+  <text x="195" y="480" text-anchor="middle" fill="#93c5fd" font-family="monospace" font-size="12" font-weight="600">OpenCV</text>
+
+  <rect x="248" y="462" width="62" height="28" rx="14" fill="#1c1917" stroke="#f97316" stroke-width="1"/>
+  <text x="279" y="480" text-anchor="middle" fill="#fb923c" font-family="monospace" font-size="12" font-weight="600">CNN</text>
+</svg>

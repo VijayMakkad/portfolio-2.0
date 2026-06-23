@@ -1,0 +1,35 @@
+---
+title: "MingleMate"
+publishedAt: "2024-06-15"
+summary: "Real-time chat app supporting 100+ concurrent users with Tailwind CSS, DaisyUI, secure JWT auth, and optimized MongoDB queries."
+images:
+  - "/images/projects/minglemate.svg"
+image: "/images/projects/minglemate.svg"
+tag: "React.js"
+team:
+  - name: "Vijay Makkad"
+    description: "Full-Stack & ML Engineer"
+    role: "Developer"
+    avatar: "/profile.mp4"
+    linkedIn: "https://www.linkedin.com/in/vijay-makkad-1573681b3/"
+link: "https://chat-app-7pwc.onrender.com/"
+---
+
+## Overview
+
+MingleMate is a real-time chat application designed to handle high concurrency with a smooth user experience. Built with **React.js, Tailwind CSS, DaisyUI**, and **Socket.IO**, users can create accounts, join conversations, and exchange messages instantly.
+
+You can view the source code on GitHub here: [Chat-App](https://github.com/VijayMakkad/Chat-App).
+
+The project focuses on the fundamentals of real-time web apps: persistent connections, secure authentication, efficient database reads/writes, and a responsive interface that stays usable under load.
+
+## Tech Stack
+
+The frontend is built with **React.js**, while the backend runs on **Node.js** with **Socket.io** for bidirectional WebSocket communication. **MongoDB** stores user accounts, chat rooms, and message history with indexes tuned for common query patterns. **JWT** authentication secures API routes and socket connections, ensuring only authenticated users can send and receive messages.
+
+## Highlights
+
+- Stress-tested with 100+ concurrent users maintaining stable real-time message delivery.
+- Implemented JWT-based auth with protected routes and socket handshake validation.
+- Optimized MongoDB queries and indexes to keep latency low during peak usage.
+- Deployed a live demo on Render with a responsive UI across screen sizes.

@@ -12,6 +12,11 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/e2e
+/playwright/.cache/
 
 # next.js
 /.next/
@@ -30,8 +35,20 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files — keep secrets out of git
 .env*
+!.env.example
+
+# editors and IDEs
+.idea/
+.vscode/
+.cursor/
+*.code-workspace
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 
 # vercel
 .vercel
